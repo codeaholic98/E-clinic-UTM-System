@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  width: 100vw;
+  margin: auto;
+}
+
+header {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("./images/pku-utm.jpg");
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.nav-menu {
+  float: right;
+  list-style: none;
+  margin-top: 5vh;
+}
+
+.nav-menu li {
+  display: inline;
+}
+
+.nav-menu li a {
+  color: rgb(253, 200, 200);
+  text-decoration: none;
+  padding: 1vh 6vh;
+  font-size: 2vh;
+}
+
+.nav-menu li a:hover {
+  background: rgb(253, 200, 200);
+  color: black;
+}
+
+.list-nav-menu {
+  display: none;
+}
+
+.line-1 {
+  background-color: rgb(253, 200, 200);
+  padding: 0.96px 9.6px;
+  margin: 2.4px 0px;
+  flex: 33.33%;
+}
+
+.line-2 {
+  background-color: rgb(253, 200, 200);
+  padding: 0.96px 9.6px;
+  margin: 2.4px 0px;
+  flex: 33.33%;
+}
+
+.line-3 {
+  background-color: rgb(253, 200, 200);
+  padding: 0.96px 9.6px;
+  margin: 2.4px 0px;
+  flex: 33.33%;
+}
+
+.logo {
+  padding: 2vh;
+  float: left;
+  height: auto;
+}
+
+.welcome-text {
+  position: absolute;
+  width: 38vw;
+  height: 35vh;
+  margin: 22% 30%;
+  text-align: center;
+}
+
+.welcome-text h1 {
+  text-align: center;
+  color: rgb(253, 200, 200);
+  text-transform: uppercase;
+  font-size: 5vh;
+  padding: 5px 20px;
+}
+
+.welcome-text a {
+  border: 1px solid rgb(253, 200, 200);
+  padding: 10px 25px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-top: 5vh;
+  display: inline-block;
+  color: rgb(253, 200, 200);
+}
+
+.welcome-text a:hover {
+  background-color: rgb(253, 200, 200);
+  color: black;
+}
+
+@media only screen and (max-width: 620px) {
+  .nav-menu li {
+    display: none;
+  }
+
+  .list-nav-menu {
+    display: flex;
+    float: right;
+    flex-wrap: wrap;
+    margin: 5vh 3vh;
+    padding: 0.5vh;
+    flex: 100%;
+  }
+
+  .welcome-text {
+    position: absolute;
+    width: 50vw;
+    margin: 15% 23%;
+    text-align: center;
+  }
+
+  .welcome-text h1 {
+    text-align: center;
+    color: rgb(253, 200, 200);
+    text-transform: uppercase;
+    font-size: 3vh;
+    padding: 5px 25px;
+    margin-top: 30vh;
+  }
+
+  .welcome-text a {
+    border: 1px solid rgb(253, 200, 200);
+    padding: 15px 25px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-top: 5vh;
+    display: inline-block;
+    color: rgb(253, 200, 200);
+  }
+
+  .welcome-text a:hover {
+    background-color: rgb(253, 200, 200);
+    color: black;
+  }
+}
+
+footer{
+  background-color: rgb(253, 200, 200);
+  text-align: center;
+  font-size: small;
+  padding: 10px;
+}

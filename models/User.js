@@ -2,7 +2,12 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
-const patientSchema = new Schema({
+const userSchema = new Schema({
+    role:{
+        type: String,
+        required: true,
+        unique: true
+    },
     username : {
         type: String,
         required: true,
@@ -21,35 +26,16 @@ const patientSchema = new Schema({
     password: {
         type: String,
         required: true
-    },
-    matric_no: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    ic_no: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    age: {
-        type: Number
-    },
-    gender: {
-        type: String
-    },
-    phone_no: {
-        type: String
     }
-
 });
 
-const Patient = mongoose.model('Patient', patientSchema);
+const User = mongoose.model('User', userSchema);
 
-module.exports = Patient;
+module.exports = userSchema;
 
+//helpful fuctions
 
-patientSchema.pre("save", function(next){
+userSchema.pre("save", function(next){
     if(!this.isModified("password")){
         return next();
     }
@@ -57,6 +43,6 @@ patientSchema.pre("save", function(next){
     next();
 })
 
-patientSchema.methods.comparePassword = function(plaintext, callback){
+userSchema.methods.comparePassword = function(plaintext, callback){
     return callback(null, bcrypt.compareSync(plaintext, this.password))
 }

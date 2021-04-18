@@ -1,69 +1,53 @@
 const Patient = require('../models/patient.model');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+//const jwt = require('jsonwebtoken');
 
 
-const register = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10, async function(err, hashedPass) {
-        if(err) {
-            res.json({
-                error: err
-            })
-        }
+const register = (req, res) => {
+    
 
         const patient = new Patient({
             username: req.body.username,
             name: req.body.name,
             email: req.body.email,
-            password: hashedPass,
+            password: req.body.password,
             matric_no: req.body.matric_no,
             ic_no: req.body.ic_no,
             age: req.body.age,
             gender: req.body.gender,
             phone_no: req.body.phone_no
-        })
+        });
+        patient.save((err, data) => {
+            if(err){
+                res.redirect('/register');
+            }else {
+                console.log(data);
+                req.session.user = data;
+                res.redirect('/patientdashboard');
+            }
+        });
+};
 
-        try {
-            const p1 = await patient.save();
-            res.json(p1);
-        } catch (error) {
-            res.send('Error' + error);
+const login = async (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    
+     try {
+        const user = await Patient.findOne({ username: username }).exec();
+        if(!user) {
+            res.redirect("/login");
         }
-})
-}
-
-const login = (req, res, next) => {
-    //var username = req.body.username
-    //var password = req.body.password
-
-    Patient.findOne({$or: [{email: req.body.email}, {username: req.body.username}]})
-    .then(user => {
-        if(user){
-            bcrypt.compare(req.body.password, user.password, function(err, result) {
-                if(err) {
-                    res.json({
-                        error: err
-                    })
-                }
-                else if(result) {
-                    let token = jwt.sign({name: user.name}, 'verySecretValue', {expiresIn: "1h"})
-                    res.json({
-                        message: 'Login Succesful!',
-                        token: token
-                    })
-                }else {
-                    res.json({
-                        message: 'Password does not matched!'
-                    })
-                }
-            })
-        }else {
-            res.json({
-                message: 'No User Found!'
-            })
-        }
-    })    
-}
+        user.comparePassword(password, (error, match) => {
+            if(!match) {
+              res.redirect("/login");
+            }
+        });
+        req.session.user = user;
+        res.redirect("/patientdashboard");
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
 
 

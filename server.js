@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const path = require('path');
 //const bodyParser = require('body-parser');
 const hbs = require('express-handlebars');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const morgan = require('morgan');
 const url = 'mongodb://localhost:27017/EclinicDB';
 
 require('dotenv').config();
@@ -13,7 +16,34 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-//app.use(bodyParser());
+//app.use(bodyParser.urlencoded({extended:true}));
+app.use(cookieParser());
+app.use(
+    session({
+      key: 'user_sid',
+      secret: 'randomstuff',
+      resave: false,
+      saveUninitialized: false,
+      cookie:{
+          expires: 600000
+      }
+    })
+);
+
+app.use((req, res, next) => {
+    if(req.session.user && req.cookies.user_sid){
+        res.redirect('/patientdashboard');
+    }
+    next();
+});
+
+const sessionChecker = (req, res, next) => {
+    if(req.session.user && req.cookies.user_sid){
+        res.redirect('/patientdashboard');
+    }else{
+        next();
+    }
+}
 
 // view engine setup
 app.engine('hbs', hbs({
@@ -27,22 +57,24 @@ app.set('view engine', 'hbs');
 
 app.use('/', express.static(path.join(__dirname, 'static')));
 
-app.get('/', (req, res) => {
+// Home route (index)
+app.get('/', sessionChecker, (req, res) => {
     res.render('index', { title: "E-clinic UTM"});
 })
 
-app.get('/login', (req, res) => {
-    res.render('login', {title: "E-clinic UTM"});
-})
 
+// patient routes
 const patientsRouter = require('./routes/patients');
 app.use('/', patientsRouter);
 
 
+// listening to the server on port 5000
 app.listen(5000 , () => {
     console.log("successfully started the server")
 });
 
+
+// database mongoDB connect
 mongoose.connect(url, {useNewUrlParser:true, useUnifiedTopology: true});
 const con = mongoose.connection;
 

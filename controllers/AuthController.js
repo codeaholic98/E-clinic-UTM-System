@@ -3,46 +3,77 @@ const bcrypt = require('bcrypt');
 //const jwt = require('jsonwebtoken');
 
 
-const register = (req, res) => {
-    
+const register = async (req, res, next) => {
 
-        const patient = new Patient({
-            username: req.body.username,
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            matric_no: req.body.matric_no,
-            ic_no: req.body.ic_no,
-            age: req.body.age,
-            gender: req.body.gender,
-            phone_no: req.body.phone_no
-        });
-        patient.save((err, data) => {
-            if(err){
-                res.redirect('/register');
-            }else {
-                console.log(data);
-                req.session.user = data;
-                res.redirect('/patientdashboard');
+    console.log("req body: ", req.body);
+
+        const {
+            username,
+            name,
+            email,
+            password,
+            matric_no,
+            ic_no,
+            age,
+            gender,
+            phone_no
+        } = req.body;
+
+        //const password = await bcrypt.hash(simplePassword, 10);
+
+        try{
+
+            let patient_data = {
+                    username,
+                    name,
+                    email,
+                    password,
+                    matric_no,
+                    ic_no,
+                    age,
+                    gender,
+                    phone_no
+                
+            };
+
+            patient_data = await Patient.create(patient_data);
+            req.session.user = patient_data;
+            res.redirect('/patientdashboard');
+        
+        }catch (error) {
+            if (error.code === 11000) {
+                error.status = 422;
             }
-        });
+            next(error);
+            console.log(error);
+        }
+
+        // await patient.save((err, data) => {
+        //     if(err){
+        //         res.redirect('/register');
+        //     }else {
+        //         console.log(data);
+        //         req.session.user = data;
+        //         res.redirect('/patientdashboard');
+        //     }
+        // });
 };
 
 const login = async (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
+
+    const {username, password} = req.body;
     
      try {
-        const user = await Patient.findOne({ username: username }).exec();
-        if(!user) {
+        const patient = await Patient.findOne({ username: username }).lean();
+        if(!patient) {
             res.redirect("/login");
         }
-        user.comparePassword(password, (error, match) => {
-            if(!match) {
-              res.redirect("/login");
-            }
-        });
-        req.session.user = user;
+        // patient.comparePassword(password, (error, match) => {
+        //     if(!match) {
+        //       res.redirect("/login");
+        //     }
+        // });
+        req.session.user = patient;
         res.redirect("/patientdashboard");
     } catch (error) {
       console.log(error)

@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
-//const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const hbs = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -15,8 +15,8 @@ const app = express();
 //const port = 5000;
 
 app.use(cors());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
-//app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(
     session({
@@ -30,20 +30,24 @@ app.use(
     })
 );
 
-app.use((req, res, next) => {
-    if(req.session.user && req.cookies.user_sid){
-        res.redirect('/patientdashboard');
-    }
-    next();
-});
+// session middleware
 
-const sessionChecker = (req, res, next) => {
-    if(req.session.user && req.cookies.user_sid){
-        res.redirect('/patientdashboard');
-    }else{
-        next();
-    }
-}
+// app.use((req, res, next) => {
+//     if(req.session.user && req.cookies.user_sid){
+//         res.redirect('/patientdashboard');
+//     }
+//     next();
+// });
+
+// session custom middleware
+
+// const sessionChecker = (req, res, next) => {
+//     if(req.session.user && req.cookies.user_sid){
+//         res.redirect('/patientdashboard');
+//     }else{
+//         next();
+//     }
+// }
 
 // view engine setup
 app.engine('hbs', hbs({
@@ -58,7 +62,7 @@ app.set('view engine', 'hbs');
 app.use('/', express.static(path.join(__dirname, 'static')));
 
 // Home route (index)
-app.get('/', sessionChecker, (req, res) => {
+app.get('/', (req, res) => {
     res.render('index', { title: "E-clinic UTM"});
 })
 
@@ -75,7 +79,7 @@ app.listen(5000 , () => {
 
 
 // database mongoDB connect
-mongoose.connect(url, {useNewUrlParser:true, useUnifiedTopology: true});
+mongoose.connect(url, {useNewUrlParser:true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: true});
 const con = mongoose.connection;
 
 con.on('open', () => {

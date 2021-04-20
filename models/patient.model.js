@@ -10,8 +10,7 @@ const patientSchema = new Schema({
     },
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     email: {
         type: String,
@@ -49,14 +48,14 @@ const Patient = mongoose.model('Patient', patientSchema);
 module.exports = Patient;
 
 
-patientSchema.pre("save", function(next){
-    if(!this.isModified("password")){
-        return next();
-    }
-    this.password = bcrypt.hashSync(this.password, 10);
-    next();
-})
+// patientSchema.pre("save", function(next){
+//     if(!this.isModified("password")){
+//         return next();
+//     }
+//     this.password = bcrypt.hashSync(this.password, 10);
+//     next();
+// })
 
-patientSchema.methods.comparePassword = function(plaintext, callback){
-    return callback(null, bcrypt.compareSync(plaintext, this.password))
-}
+// patientSchema.methods.comparePassword = function(plaintext, callback){
+//     return callback(null, bcrypt.compareSync(plaintext, this.password))
+// }

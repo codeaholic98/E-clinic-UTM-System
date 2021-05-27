@@ -64,7 +64,7 @@ const login = async (req, res) => {
     const {username, password} = req.body;
     
      try {
-        const patient = await Patient.findOne({ username: username }).lean();
+        const patient = await Patient.findOne({ username: username, password: password }).lean();
         if(!patient) {
             res.redirect("/login");
         }

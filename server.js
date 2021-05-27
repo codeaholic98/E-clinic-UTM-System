@@ -71,6 +71,17 @@ app.get('/', (req, res) => {
 const patientsRouter = require('./routes/patients');
 app.use('/', patientsRouter);
 
+// admin routes
+const adminRouter = require('./routes/admin');
+app.use('/', adminRouter);
+
+// doctor routes
+const doctorRouter = require('./routes/doctors');
+app.use('/', doctorRouter);
+
+// pharmacy routes
+const pharmacyRouter = require('./routes/pharmacy');
+app.use('/', pharmacyRouter);
 
 // listening to the server on port 5000
 app.listen(5000 , () => {

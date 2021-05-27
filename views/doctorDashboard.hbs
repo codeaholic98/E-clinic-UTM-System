@@ -1,0 +1,91 @@
+<div class="container" id="container">
+      <div class="header" style="background-color:white; color:#721B09; ">
+        <img class="logo" src="../images/Logo-PKU.png" alt="ClinicCareLogo" />
+        
+        {{!-- <div class="date-time">
+          <p id="date">May 2, 2020</p>
+          <p id="time">20:05</p>
+        </div> --}}
+
+        <div>
+            <h3>Welcome to E-clinic UTM</h3>
+            <p style="text-align: center;">Hi, Dr. </p>
+        </div>
+
+        {{!-- <div class="search-bar">
+          <div class="dropdown-box">
+            <input type="text" name="search" autocomplete="off" />
+            <a href="#" class="searching-button"
+              ><img class="nav-icon" src="src/img/magnify-glass.svg" alt=""
+            /></a>
+
+            <div class="searchbar-dropdown">
+              <input type="radio" id="search-by-id" name="src" />
+              <label for="search-by-id">Search by ID</label>
+              <br />
+              <br />
+              <input type="radio" id="search-by-name" name="src" />
+              <label for="search-by-name">Search by Name</label>
+            </div>
+          </div>
+        </div> --}}
+
+        <div class="nav-images">
+          <a href="#" class="nav-logos"
+            ><img src="../images/settings.png" alt=""
+          /></a>
+
+          <div class="dropdown-notification">
+            <a href="#" class="nav-logos"
+              ><img src="../images/notification.png" alt=""
+            /></a>
+            <div class="dropdown-content">
+              <a href="#">You have missed an appointment</a>
+              <a href="#">Clear all notification</a>
+            </div>
+          </div>
+
+          <div class="dropdown-user">
+            <a href="# " class="nav-logos"
+              ><img src="../images/user.png " alt=" "
+            /></a>
+            <div class="dropdown-content2">
+              <a href="/logout">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar" id="sidebar">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+          <a href="" onclick=" return false">
+            <div id="arrow-left"></div>
+          </a>
+        </div>
+
+        <a href="#home" class="nav-active"
+          ><img src="../images/home.png" />Home</a
+        >
+        <a href="#"
+          ><img src="../images/diagnostic.svg" alt="" />View Patient Report</a
+        >
+        <a href="/logout"
+          ><img src="../images/logout.png" alt="" />Logout
+        </a>
+      </div>
+
+      <div class="main" style="background-color:#721B09; color:white; ">
+        
+      </div>
+</div>
+
+    <script type="text/javascript">
+      function toggleSidebar() {
+        document
+          .getElementById("container")
+          .classList.toggle("container-no-sidebar");
+        document.getElementById("sidebar").classList.toggle("active");
+        document.getElementById("arrow-left").classList.toggle("active");
+      }
+
+    </script>

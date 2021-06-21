@@ -2,9 +2,9 @@
       <div class="header" style="background-color:white; color:#721B09; ">
         <img class="logo" src="../images/Logo-PKU.png" alt="ClinicCareLogo" />
         
-        <div>
-            <h3>Welcome to E-clinic UTM</h3>
-            <p style="text-align: center;">Pharmacy</p>
+        <div class="date-time">
+          <p id="date">June 1, 2021</p>
+          <p id="time">00:00</p>
         </div>
 
         <div class="nav-images">
@@ -40,9 +40,21 @@
           </a>
         </div>
 
-        <a href="/pharmacydashboard" class="nav-active"
-          ><img src="../images/home.png" />Home
-        </a>
+        <a href="/admindashboard" class="nav-active"
+          ><img src="../images/home.png" />Home</a
+        >
+        <a href="/managedoctor"
+          ><img src="../images/manage.png" alt="" />Manage Doctor</a
+        >
+        <a href="/managepharmacy"
+          ><img src="../images/manage.png" alt="" />Manage Pharmacy</a
+        >
+        <a href="#"
+          ><img src="../images/manage.png" alt="" />Manage Activity</a
+        >
+        <a href="/managebookings"
+          ><img src="../images/manage.png" alt="" />Manage Bookings</a
+        >
         <a href="/logout"
           ><img src="../images/logout.png" alt="" />Logout
         </a>
@@ -51,19 +63,26 @@
       <div class="main" style="background-color:#721B09; color:white; ">
         <div class="top-container">
             <div class="report-heading">
-                <h1>PRESCRIPTIONS</h1>
+                <h1>Doctors</h1>
             </div>
             <div class="table-container">
                 <table id="report">
                     <tr>
                         <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
                         <th>Action</th>
                     </tr>
                     <tr>
-                        <td>Syed Muhammad Yamin Gharbi</td>
-                        <td><button class="card-button">View</button></td>
+                        <td>Dr. Williams John</td>
+                        <td>50</td>
+                        <td>Male</td>
+                        <td><button class="card-button">Delete</button></td>
                     </tr>
                 </table>
+            </div>
+            <div class="box-container">
+                <button onclick="window.location.href='/adddoctor'" class="box-container-button">Add New Doctor</button>
             </div>
         </div>
       </div>

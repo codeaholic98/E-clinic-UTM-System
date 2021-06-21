@@ -73,7 +73,7 @@
         background-color: #717171;
         }
 
-        /* status bar */
+        /* status bar and cards*/
 
         .mid-container{
         display: flex;
@@ -113,19 +113,111 @@
         }
 
         .card-image{
-        width: 250px;
+        width: 240px;
         height: 217px;
         }
         
         .card-button{
-        margin: 10px;
-        padding: 10px;
-        text-decoration: none;
+        padding: 14px 20px;
+        margin: 8px 5px;
         text-align: center;
+        text-decoration: none;
         background-color: #721B09;
         color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+        /* view diagnostic report style */
+
+        .top-container{
+        background-color: rgb(201, 197, 197);
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        width: 80%;
+        margin: 60px auto;
+        height: 60vh;
+        }
+
+        .report-heading{
+        text-align: center;
+        color: #721B09;        
+        }
+
+        /* table report style */
+
+        .table-container{
+        display: flex;
+        padding: 20px;
+        justify-content: center;
+        }
+
+        #report {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 80%;
+        }
+              
+        #report td, #report th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        }
+              
+        #report tr{background-color: #f2f2f2;}
+              
+        #report tr:hover {background-color: #ddd;}
+              
+        #report th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #721B09;
+        color: white;
+        }
+
+        /* id box container and input type text style */
+
+        .input-type-text{
+        width: 50%;
+        padding: 12px 20px;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+        border-radius: 4px;
         box-sizing: border-box;
-        border: 1px black solid;
+        }
+
+        .box-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;        
+        }
+
+        .box-container-button{
+        margin: 0 auto;
+        padding: 12px 20px;
+        width: 20%;
+        background-color: #721B09;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;        
+        }
+
+        /* admin chart style */
+
+        .inner-container{
+        display: flex;
+
+        }
+
+        .top-left-container{
+        flex: 1 1 50%;
+        }
+
+        .top-right-container{
+        flex: 1 1 50%;
         }
 
         /* Fading animation */

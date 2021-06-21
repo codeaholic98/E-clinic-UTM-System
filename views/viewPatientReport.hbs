@@ -4,7 +4,7 @@
         
         <div>
             <h3>Welcome to E-clinic UTM</h3>
-            <p style="text-align: center;">Pharmacy</p>
+            <p style="text-align: center;">Hi, Dr. </p>
         </div>
 
         <div class="nav-images">
@@ -40,9 +40,12 @@
           </a>
         </div>
 
-        <a href="/pharmacydashboard" class="nav-active"
-          ><img src="../images/home.png" />Home
-        </a>
+        <a href="/doctordashboard" class="nav-active"
+          ><img src="../images/home.png" />Home</a
+        >
+        <a href="/viewpatientreport"
+          ><img src="../images/diagnostic.svg" alt="" />View Patient Report</a
+        >
         <a href="/logout"
           ><img src="../images/logout.png" alt="" />Logout
         </a>
@@ -51,19 +54,11 @@
       <div class="main" style="background-color:#721B09; color:white; ">
         <div class="top-container">
             <div class="report-heading">
-                <h1>PRESCRIPTIONS</h1>
+                <h1>Enter Patient ID</h1>
             </div>
-            <div class="table-container">
-                <table id="report">
-                    <tr>
-                        <th>Name</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>Syed Muhammad Yamin Gharbi</td>
-                        <td><button class="card-button">View</button></td>
-                    </tr>
-                </table>
+            <div class="box-container">
+               <input class="input-type-text" type="text" id="matric_no" name="matric_no" placeholder="Matric no."><br>
+               <button class="box-container-button">View</button> 
             </div>
         </div>
       </div>

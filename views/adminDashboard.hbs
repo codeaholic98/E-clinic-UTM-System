@@ -3,31 +3,9 @@
         <img class="logo" src="../images/Logo-PKU.png" alt="ClinicCareLogo" />
         
         <div class="date-time">
-          <p id="date">May 2, 2020</p>
-          <p id="time">20:05</p>
+          <p id="date">June 1, 2021</p>
+          <p id="time">00:00</p>
         </div>
-
-        {{!-- <div>
-            <h1>Welcome to E-clinic UTM</h1>
-        </div> --}}
-
-        {{!-- <div class="search-bar">
-          <div class="dropdown-box">
-            <input type="text" name="search" autocomplete="off" />
-            <a href="#" class="searching-button"
-              ><img class="nav-icon" src="src/img/magnify-glass.svg" alt=""
-            /></a>
-
-            <div class="searchbar-dropdown">
-              <input type="radio" id="search-by-id" name="src" />
-              <label for="search-by-id">Search by ID</label>
-              <br />
-              <br />
-              <input type="radio" id="search-by-name" name="src" />
-              <label for="search-by-name">Search by Name</label>
-            </div>
-          </div>
-        </div> --}}
 
         <div class="nav-images">
           <a href="#" class="nav-logos"
@@ -62,19 +40,19 @@
           </a>
         </div>
 
-        <a href="#home" class="nav-active"
+        <a href="/admindashboard" class="nav-active"
           ><img src="../images/home.png" />Home</a
         >
-        <a href="#"
+        <a href="/managedoctor"
           ><img src="../images/manage.png" alt="" />Manage Doctor</a
         >
-        <a href="#"
+        <a href="/managepharmacy"
           ><img src="../images/manage.png" alt="" />Manage Pharmacy</a
         >
         <a href="#"
           ><img src="../images/manage.png" alt="" />Manage Activity</a
         >
-        <a href="#"
+        <a href="/managebookings"
           ><img src="../images/manage.png" alt="" />Manage Bookings</a
         >
         <a href="/logout"
@@ -83,11 +61,98 @@
       </div>
 
       <div class="main" style="background-color:#721B09; color:white; ">
-        
+        <div class="top-container">
+          <div class="inner-container">
+            <div class="top-left-container">
+              <canvas id="myChart"></canvas>
+            </div>
+            <div class="top-right-container">
+              <canvas id="mylineChart"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
 </div>
 
-    <script type="text/javascript">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js">
+
+</script>
+
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+var ctl = document.getElementById('mylineChart').getContext('2d');
+var myChart = new Chart(ctl, {
+    type: 'line',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+  <script type="text/javascript">
       function toggleSidebar() {
         document
           .getElementById("container")
@@ -96,4 +161,4 @@
         document.getElementById("arrow-left").classList.toggle("active");
       }
 
-    </script>
+  </script>

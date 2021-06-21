@@ -1,34 +1,11 @@
 <div class="container" id="container">
       <div class="header" style="background-color:white; color:#721B09; ">
         <img class="logo" src="../images/Logo-PKU.png" alt="ClinicCareLogo" />
-        
-        {{!-- <div class="date-time">
-          <p id="date">May 2, 2020</p>
-          <p id="time">20:05</p>
-        </div> --}}
 
         <div>
             <h3>Welcome to E-clinic UTM</h3>
             <p style="text-align: center;">Hi, Dr. </p>
         </div>
-
-        {{!-- <div class="search-bar">
-          <div class="dropdown-box">
-            <input type="text" name="search" autocomplete="off" />
-            <a href="#" class="searching-button"
-              ><img class="nav-icon" src="src/img/magnify-glass.svg" alt=""
-            /></a>
-
-            <div class="searchbar-dropdown">
-              <input type="radio" id="search-by-id" name="src" />
-              <label for="search-by-id">Search by ID</label>
-              <br />
-              <br />
-              <input type="radio" id="search-by-name" name="src" />
-              <label for="search-by-name">Search by Name</label>
-            </div>
-          </div>
-        </div> --}}
 
         <div class="nav-images">
           <a href="#" class="nav-logos"
@@ -63,10 +40,10 @@
           </a>
         </div>
 
-        <a href="#home" class="nav-active"
+        <a href="/doctordashboard" class="nav-active"
           ><img src="../images/home.png" />Home</a
         >
-        <a href="#"
+        <a href="/viewpatientreport"
           ><img src="../images/diagnostic.svg" alt="" />View Patient Report</a
         >
         <a href="/logout"
@@ -75,7 +52,23 @@
       </div>
 
       <div class="main" style="background-color:#721B09; color:white; ">
-        
+        <div class="top-container">
+            <div class="report-heading">
+                <h1>BOOKINGS LIST</h1>
+            </div>
+            <div class="table-container">
+                <table id="report">
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Syed Muhammad Yamin Gharbi</td>
+                        <td><button onclick="window.location.href='/issueprescription'" class="card-button">Call</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
       </div>
 </div>
 

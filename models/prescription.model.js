@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const prescriptionSchema = new Schema({
     issue_date: {
-        type: String,
+        type: Date,
         required: true
     },
     prescription_type: {

@@ -1,10 +1,9 @@
 <div class="container" id="container">
       <div class="header" style="background-color:white; color:#721B09; ">
         <img class="logo" src="../images/Logo-PKU.png" alt="ClinicCareLogo" />
-        
+
         <div>
-            <h3>Welcome to E-clinic UTM</h3>
-            <p style="text-align: center;">Pharmacy</p>
+            <h1>Welcome to E-clinic UTM</h1>
         </div>
 
         <div class="nav-images">
@@ -40,23 +39,30 @@
           </a>
         </div>
 
-        <a href="/pharmacydashboard" class="nav-active"
-          ><img src="../images/home.png" />Home
-        </a>
+        <a href="/patientdashboard" class="nav-active"
+          ><img src="../images/home.png" />Home</a
+        >
+        <a href="/bookappointments"
+          ><img src="../images/appointment-icon.svg" alt="" />Book Appointments</a
+        >
+        <a href="#"
+          ><img src="../images/diagnostic.svg" alt="" />View Diagnostic Report</a
+        >
         <a href="/logout"
           ><img src="../images/logout.png" alt="" />Logout
         </a>
       </div>
 
       <div class="main" style="background-color:#721B09; color:white; ">
+
         <div class="top-container">
             <div class="report-heading">
-                <h1>PRESCRIPTIONS</h1>
+                <h1>REPORTS</h1>
             </div>
             <div class="table-container">
                 <table id="report">
                     <tr>
-                        <th>Name</th>
+                        <th>Type</th>
                         <th>Action</th>
                     </tr>
                     <tr>
@@ -66,6 +72,7 @@
                 </table>
             </div>
         </div>
+
       </div>
 </div>
 
@@ -77,5 +84,4 @@
         document.getElementById("sidebar").classList.toggle("active");
         document.getElementById("arrow-left").classList.toggle("active");
       }
-
     </script>

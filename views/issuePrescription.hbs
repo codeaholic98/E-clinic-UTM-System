@@ -1,0 +1,48 @@
+<div class="container-fluid vh-100" style="background-color:#721B09;">
+     <div class="row justify-content-center h-100">
+        <div class="card w-50 my-auto shadow">
+            <div class="card-header text-center">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="../images/Logo-PKU.png" alt="utm-pku-logo" style="width: 13vw; height: 7vh">
+                    </div>
+                    <div class="col-6">
+                        <h2 class="text-center p-2" style="color:#721B09;">Issue Prescription</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body"> 
+                <div style="color:#721B09;">
+                    <h3>Patient's Details:</h3>
+                    <p>Name: Syed Muhammad Yamin Gharbi</p>
+                    <p>Age: 22</p>
+                    <p>Gender: Male</p>
+                    <p>Matric no.: A17CS5066</p>
+                    <p>IC no.: 201709M10012</p>
+                    <p>Phone no.: 0187603124</p>
+                </div>
+                <div style="color:#721B09;">
+                    <h3>Add Prescription</h3>
+                </div>
+                <form action="" method="POST" enctype="application/json">
+                    <div class="form-group">   
+                        <label for="issue_date" style="color:#721B09;">Issue Date: </label><br>
+                        <input type="date" id="issue_date" class="form-control" name="issue_date" placeholder="Issue Date"><br>
+                    </div>
+                    <div class="form-group">   
+                        <label for="prescription_type" style="color:#721B09;">Prescription Type: </label><br>
+                        <input type="text" id="prescription_type" class="form-control" name="prescription_type" placeholder="Prescription Type"><br>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a prescription here" id="prescription_details" name="prescription_details" style="height: 100px"></textarea><br>
+                        <label for="prescription_details" style="color:#721B09;">Prescription Details: </label>
+                    </div>
+                    <button class="btn btn-block w-100" style="background-color:#721B09; color:white; " value="submit">Prescribe</button>
+                </form>
+            </div>
+            <div class="card=footer">
+
+            </div>
+        </div>
+     </div>
+</div>

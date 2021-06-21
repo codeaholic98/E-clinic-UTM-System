@@ -36,6 +36,14 @@ router.get('/patientdashboard', (req, res) => {
 
 })
 
+router.get('/bookappointments', (req, res) => {
+    res.render('bookAppointmentPage', {title: "E-clinic UTM"});
+})
+
+router.get('/viewdiagnosticreport', (req, res) => {
+    res.render('viewDiagnosticReport', {title: "E-clinic UTM", layout: "dashboardlayout"});
+})
+
 router.get('/logout', (req, res) => {
   if (req.session.user && req.cookies.user_sid) {
     res.clearCookie("user_sid");

@@ -9,10 +9,10 @@ const session = require('express-session');
 const morgan = require('morgan');
 const url = 'mongodb://localhost:27017/EclinicDB';
 
-require('dotenv').config();
+require('dotenv').config({path : 'config.env'});
 
 const app = express();
-//const port = 5000;
+const PORT = process.env.PORT ||  8080;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -84,7 +84,7 @@ const pharmacyRouter = require('./routes/pharmacy');
 app.use('/', pharmacyRouter);
 
 // listening to the server on port 5000
-app.listen(5000 , () => {
+app.listen(PORT , () => {
     console.log("successfully started the server")
 });
 

@@ -132,7 +132,7 @@
         /* view diagnostic report style */
 
         .top-container{
-        background-color: rgb(201, 197, 197);
+        
         display: flex;
         justify-content: space-around;
         flex-direction: column;
@@ -200,7 +200,7 @@
         width: 20%;
         background-color: #721B09;
         color: white;
-        border: none;
+        border: 1px solid #721B09;
         border-radius: 4px;
         cursor: pointer;        
         }

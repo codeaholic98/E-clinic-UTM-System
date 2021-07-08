@@ -29,7 +29,7 @@ const createDoctor = (req, res) => {
     doctor
         .save(doctor)
         .then(data => {
-            res.send(data)
+            res.redirect('/managedoctor')
         })
         .catch(err => {
             res.status(500).send({
@@ -38,13 +38,12 @@ const createDoctor = (req, res) => {
         });
 }
 
-
-
 // find doctor 
 const findDoctor = (req, res) => {
-    Doctor.find()
-    .then(doctor => {
-        res.send(doctor)
+    Doctor.find({}).lean()
+    .then(doctors => {
+       
+        res.render('manageDoctor', {title: "E-clinic UTM", layout: "dashboardlayout", doctors: doctors});
     })
     .catch(err => {
         res.status(500).send({message: err.message || "Error Occurred while retriving doctor info from DB"})
@@ -82,7 +81,7 @@ const deleteDoctor = (req, res) => {
         if(!data){
             res.status(404).send({message: `Can not delete with id ${id}. Maybe id is wrong`})
         }else{
-            res.send({message: "User has been deleted successfully!"})
+            res.redirect('/managedoctor')
         }
     })
     .catch(err => {
@@ -117,7 +116,7 @@ const createPharmacist = (req, res) => {
     pharmacist
         .save(pharmacist)
         .then(data => {
-            res.send(data)
+            res.redirect('/managepharmacy')
         })
         .catch(err => {
             res.status(500).send({
@@ -128,9 +127,9 @@ const createPharmacist = (req, res) => {
 
 // find pharmacist 
 const findPharmacist = (req, res) => {
-    Pharmacist.find()
-    .then(pharmacist => {
-        res.send(pharmacist)
+    Pharmacist.find({}).lean()
+    .then(pharmacists => {
+        res.render('managePharmacy', {title: "E-clinic UTM", layout: "dashboardlayout", pharmacists: pharmacists});
     })
     .catch(err => {
         res.status(500).send({message: err.message || "Error Occurred while retriving pharmacist info from DB"})

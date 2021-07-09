@@ -165,7 +165,7 @@ const deletePharmacist = (req, res) => {
         if(!data){
             res.status(404).send({message: `Can not delete with id ${id}. Maybe id is wrong`})
         }else{
-            res.send({message: "User has been deleted successfully!"})
+            res.redirect('/managepharmacy')
         }
     })
     .catch(err => {

@@ -34,14 +34,14 @@ router.get('/addpharmacist', (req, res) => {
 router.post('/addDoctor', AdminController.createDoctor)
 router.get('/managedoctor', AdminController.findDoctor)
 router.put('/updateDoctor/:id', AdminController.updateDoctor)
-router.delete('/deleteDoctor/:id', AdminController.deleteDoctor)
+router.get('/deleteDoctor/:id', AdminController.deleteDoctor)
 
 // API for  managing pharmacist
 
 router.post('/addPharmacist', AdminController.createPharmacist)
 router.get('/managepharmacy', AdminController.findPharmacist)
 router.put('/updatePharmacist/:id', AdminController.updatePharmacist)
-router.delete('/deletePharmacist/:id', AdminController.deletePharmacist)
+router.get('/deletePharmacist/:id', AdminController.deletePharmacist)
 
 
 module.exports = router;

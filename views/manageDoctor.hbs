@@ -78,7 +78,7 @@
                         <td>{{this.name}}</td>
                         <td>{{this.age}}</td>
                         <td>{{this.gender}}</td>
-                        <td><button class="card-button">Delete</button></td>
+                        <td><button onclick="window.location.href='/deleteDoctor/{{this._id}}'" class="card-button">Delete</button></td>
                     </tr>
                     {{/each}}
                 </table>

@@ -1,5 +1,29 @@
 const Doctor = require('../models/doctor.model');
 const Pharmacist = require('../models/pharmacy.model');
+const Admin = require('../models/admin.model');
+
+/* 
+    module for admin login 
+*/ 
+
+const adminlogin = async (req, res) => {
+
+    const {username, password} = req.body;
+    
+     try {
+        const admin = await Admin.findOne({ username: username, password: password }).lean();
+        if(!admin) {
+            res.redirect("/doctorlogin");
+        }
+        
+        req.session.user = admin;
+        res.redirect("/admindashboard");
+    } catch (error) {
+      console.log(error)
+    }
+};
+
+
 /* 
     modules for manage doctor 
 */ 
@@ -24,6 +48,7 @@ const createDoctor = (req, res) => {
         phone_no: req.body.phone_no
     })
 
+    
     // save doctor in the database
     doctor
         .save(doctor)
@@ -35,6 +60,7 @@ const createDoctor = (req, res) => {
                 message: err.message || "Some error occurred while saving the doctor info into database"
             });
         });
+
 }
 
 // find doctor 
@@ -111,7 +137,8 @@ const createPharmacist = (req, res) => {
         gender: req.body.gender
     })
 
-    // save doctor in the database
+
+    // save pharmacist in the database 
     pharmacist
         .save(pharmacist)
         .then(data => {
@@ -122,6 +149,7 @@ const createPharmacist = (req, res) => {
                 message: err.message || "Some error occurred while saving the pharmacist info into database"
             });
         });
+    
 }
 
 // find pharmacist 
@@ -173,6 +201,6 @@ const deletePharmacist = (req, res) => {
 }
 
 
-module.exports = {createDoctor, createPharmacist, findDoctor, findPharmacist, updateDoctor, updatePharmacist, deleteDoctor, deletePharmacist};
+module.exports = {adminlogin, createDoctor, createPharmacist, findDoctor, findPharmacist, updateDoctor, updatePharmacist, deleteDoctor, deletePharmacist};
 
 

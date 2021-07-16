@@ -32,8 +32,7 @@ const register = async (req, res, next) => {
                     ic_no,
                     age,
                     gender,
-                    phone_no
-                
+                    phone_no    
             };
 
             patient_data = await Patient.create(patient_data);
@@ -48,15 +47,6 @@ const register = async (req, res, next) => {
             console.log(error);
         }
 
-        // await patient.save((err, data) => {
-        //     if(err){
-        //         res.redirect('/register');
-        //     }else {
-        //         console.log(data);
-        //         req.session.user = data;
-        //         res.redirect('/patientdashboard');
-        //     }
-        // });
 };
 
 const login = async (req, res) => {
@@ -68,11 +58,7 @@ const login = async (req, res) => {
         if(!patient) {
             res.redirect("/login");
         }
-        // patient.comparePassword(password, (error, match) => {
-        //     if(!match) {
-        //       res.redirect("/login");
-        //     }
-        // });
+        
         req.session.user = patient;
         res.redirect("/patientdashboard");
     } catch (error) {

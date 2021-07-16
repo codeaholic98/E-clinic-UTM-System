@@ -105,7 +105,12 @@ const findApprovedAppointments = async (req,res)=>{
         return;
     }else{
         console.log("approvedappointments", approvedappointments);
-        res.render('doctorDashboard', {title: "E-clinic UTM", layout: "dashboardlayout", approvedappointments: approvedappointments})
+        
+        if (req.session.user && req.cookies.user_sid) {
+            res.render('doctorDashboard', {title: "E-clinic UTM", layout: "dashboardlayout", approvedappointments: approvedappointments})
+        }else{
+            res.redirect('/doctorlogin');
+        }
     }
 }
 

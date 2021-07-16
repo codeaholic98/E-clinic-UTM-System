@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const session = require('express-session');
 const AuthController = require('../controllers/AuthController');
+const BookingController = require('../controllers/BookingController');
+
 
 // session custom middleware
 
@@ -39,6 +41,8 @@ router.get('/patientdashboard', (req, res) => {
 router.get('/bookappointments', (req, res) => {
     res.render('bookAppointmentPage', {title: "E-clinic UTM"});
 })
+
+router.post('/bookappointments', BookingController.createBookings);
 
 router.get('/viewdiagnosticreport', (req, res) => {
     res.render('viewDiagnosticReport', {title: "E-clinic UTM", layout: "dashboardlayout"});

@@ -1,4 +1,3 @@
-const Admin = require('../models/admin.model');
 const Doctor = require('../models/doctor.model');
 const Pharmacist = require('../models/pharmacy.model');
 /* 

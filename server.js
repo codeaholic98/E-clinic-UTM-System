@@ -90,7 +90,7 @@ app.listen(PORT , () => {
 
 
 // database mongoDB connect
-mongoose.connect(url, {useNewUrlParser:true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: true});
+mongoose.connect(url, {useNewUrlParser:true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
 const con = mongoose.connection;
 
 con.on('open', () => {

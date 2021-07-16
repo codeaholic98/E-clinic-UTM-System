@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Patient = require('./patient.model');
 
 const Schema = mongoose.Schema;
 
@@ -16,7 +17,8 @@ const adminSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+ 
 });
 
 const Admin = mongoose.model('Admin', adminSchema);

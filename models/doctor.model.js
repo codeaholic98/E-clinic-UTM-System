@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Patient = require('../models/patient.model');
 const Schema = mongoose.Schema;
 
 const doctorSchema = new Schema({
@@ -33,7 +33,12 @@ const doctorSchema = new Schema({
     },
     phone_no: {
         type: String
-    }
+    },
+    //these are list of patients assigned to this doctor. 
+    patients: [{
+        type:Schema.Types.ObjectId,
+        ref : Patient
+    }]
 
 });
 

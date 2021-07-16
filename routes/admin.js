@@ -1,25 +1,16 @@
 const router = require('express').Router();
 const session = require('express-session');
 const AdminController = require('../controllers/AdminController');
-
+const bookingController = require('../controllers/BookingController');
 
 router.get('/admindashboard', (req, res) => {
 
     res.render('adminDashboard', {title: "E-clinic UTM", layout: "dashboardlayout"});
 });
 
-//router.get('/managedoctor', async (req, res) => {
-//     const doctors = await AdminService.findDoctor()
-//    res.render('manageDoctor', {title: "E-clinic UTM", layout: "dashboardlayout"});
-//});
+router.get('/managebookings', bookingController.findBookings);
 
-// router.get('/managepharmacy', (req, res) => {
-//     res.render('managePharmacy', {title: "E-clinic UTM", layout: "dashboardlayout"});
-// });
-
-router.get('/managebookings', (req, res) => {
-    res.render('manageBookings', {title: "E-clinic UTM", layout: "dashboardlayout"});
-});
+router.get('/approvebookings/:id', bookingController.approveBooking);
 
 router.get('/adddoctor', (req, res) => {
     res.render('addDoctor', {title: "E-clinic UTM"});

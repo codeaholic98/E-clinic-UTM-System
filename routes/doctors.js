@@ -1,9 +1,8 @@
 const router = require('express').Router();
 const session = require('express-session');
+const bookingController = require('../controllers/BookingController');
 
-router.get('/doctordashboard', (req, res) => {
-    res.render('doctorDashboard', {title: "E-clinic UTM", layout: "dashboardlayout"});
-});
+router.get('/doctordashboard', bookingController.findApprovedAppointments);
 
 router.get('/viewpatientreport', (req, res) => {
     res.render('viewPatientReport', {title: "E-clinic UTM", layout: "dashboardlayout"});

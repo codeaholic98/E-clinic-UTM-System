@@ -1,11 +1,16 @@
 const Patient = require('../models/patient.model');
 const bcrypt = require('bcrypt');
+var validator = require('validator');
+
 //const jwt = require('jsonwebtoken');
 
 
 const register = async (req, res, next) => {
 
     console.log("req body: ", req.body);
+
+    //TODO if req.body is empty, throw error message.
+    //if email is 
 
         const {
             username,
@@ -19,6 +24,10 @@ const register = async (req, res, next) => {
             phone_no
         } = req.body;
 
+        if(!validator.isEmail(email))
+        {
+            //send the error message
+        }
         //const password = await bcrypt.hash(simplePassword, 10);
 
         try{

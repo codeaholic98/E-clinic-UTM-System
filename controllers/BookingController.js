@@ -117,16 +117,25 @@ const findApprovedAppointments = async (req,res)=>{
 
 // CALLED BOOKING
 const callBooking = async (req,res)=>{
-    const doctor_id = req.params.doctor_id
+    //const doctor_id = req.params.doctor_id
     const appointment_id = req.params.id;
-    const appointment = await Appointment.findById(appointment_id)
-    if (appointment.status == 'called') return 'error'
-    else{
+    console.log('id', appointment_id);
+    const approvedappointment = await Appointment.findById(appointment_id)
+    if (approvedappointment.status == 'called'){
 
-    const appointment = await Appointment.findByIdAndUpdate(id,{
-        status:'called',
-        doctor:doctor_id
-    })
+        res.status(400).send({message: "This patient has been called already"});
+        return;
+    } 
+    else {
+
+         await Appointment.findByIdAndUpdate(appointment_id,{
+            status:'called'
+        }).lean().populate('patient').then(appointment => {
+            console.log('appointment', appointment)
+            res.render('issuePrescription', {title: "E-clinic UTM", appointment: appointment});
+        }).catch(err => {
+            res.status(500).send({message: err.message});
+        })
 
     }
 }

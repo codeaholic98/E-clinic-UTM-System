@@ -12,19 +12,21 @@
                 </div>
             </div>
             <div class="card-body"> 
+                
                 <div style="color:#721B09;">
                     <h3>Patient's Details:</h3>
-                    <p>Name: Syed Muhammad Yamin Gharbi</p>
-                    <p>Age: 22</p>
-                    <p>Gender: Male</p>
-                    <p>Matric no.: A17CS5066</p>
-                    <p>IC no.: 201709M10012</p>
-                    <p>Phone no.: 0187603124</p>
+                    <p>Name: {{appointment.patient.name}}</p>
+                    <p>Age: {{appointment.patient.age}}</p>
+                    <p>Gender: {{appointment.patient.gender}}</p>
+                    <p>Matric no.: {{appointment.patient.matric_no}}</p>
+                    <p>IC no.: {{appointment.patient.ic_no}}</p>
+                    <p>Phone no.: {{appointment.patient.phone_no}}</p>
                 </div>
+                
                 <div style="color:#721B09;">
                     <h3>Add Prescription</h3>
                 </div>
-                <form action="" method="POST" enctype="application/json">
+                <form action="/issueprescription" method="POST" enctype="application/json">
                     <div class="form-group">   
                         <label for="issue_date" style="color:#721B09;">Issue Date: </label><br>
                         <input type="date" id="issue_date" class="form-control" name="issue_date" placeholder="Issue Date"><br>

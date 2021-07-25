@@ -14,9 +14,7 @@ router.get('/viewpatientreport', (req, res) => {
     res.render('viewPatientReport', {title: "E-clinic UTM", layout: "dashboardlayout"});
 });
 
-router.get('/issueprescription', (req, res) => {
-    res.render('issuePrescription', {title: "E-clinic UTM"});
-});
+router.get('/callpatient/:id', bookingController.callBooking);
 
 router.get('/logout', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {

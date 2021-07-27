@@ -4,7 +4,7 @@
         
         <div>
             <h3>Welcome to E-clinic UTM</h3>
-            <p style="text-align: center;">Hi, Dr. </p>
+            <p style="text-align: center;">Hi, {{doctorname}}  </p>
         </div>
 
         <div class="nav-images">
@@ -56,10 +56,12 @@
             <div class="report-heading">
                 <h1>Enter Patient ID</h1>
             </div>
-            <div class="box-container">
+            <form action="/viewpatientprescription" method="POST" enctype="application/json">
+              <div class="box-container">
                <input class="input-type-text" type="text" id="matric_no" name="matric_no" placeholder="Matric no."><br>
-               <button class="box-container-button">View</button> 
+               <button class="box-container-button" value="submit">View</button> 
             </div>
+            </form>
         </div>
       </div>
 </div>

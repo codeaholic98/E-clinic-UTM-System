@@ -63,7 +63,7 @@ const findBookings = async (req, res) => {
     
     if(!appointments){
         //send error
-        res.status(400).send({message: "Content can not be empty"});
+        res.status(400).send({message: "No appointments!"});
         return;
     }else
     {
@@ -107,12 +107,13 @@ const findApprovedAppointments = async (req,res)=>{
         console.log("approvedappointments", approvedappointments);
         
         if (req.session.user && req.cookies.user_sid) {
-            res.render('doctorDashboard', {title: "E-clinic UTM", layout: "dashboardlayout", approvedappointments: approvedappointments})
+            res.render('doctorDashboard', {title: "E-clinic UTM", layout: "dashboardlayout", approvedappointments: approvedappointments, doctorname: req.session.user.name})
         }else{
             res.redirect('/doctorlogin');
         }
     }
 }
+
 
 
 // CALLED BOOKING

@@ -52,7 +52,7 @@ router.get('/logout', (req, res) => {
       res.clearCookie("user_sid");
       res.redirect("/");
     } else {
-      res.redirect("/login");
+      res.redirect("/adminlogin");
     }
   })
 

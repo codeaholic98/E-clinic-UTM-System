@@ -27,6 +27,10 @@
                     <h3>Add Prescription</h3>
                 </div>
                 <form action="/issueprescription" method="POST" enctype="application/json">
+                    <div class="form-group" style="display: none;">   
+                        <label for="matric_no" style="color:#721B09;">Matric No: </label><br>
+                        <input type="text" id="matric_no" class="form-control" name="matric_no" placeholder="Matric No" value="{{appointment.patient.matric_no}}"><br>
+                    </div>
                     <div class="form-group">   
                         <label for="issue_date" style="color:#721B09;">Issue Date: </label><br>
                         <input type="date" id="issue_date" class="form-control" name="issue_date" placeholder="Issue Date"><br>

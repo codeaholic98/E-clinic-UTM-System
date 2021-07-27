@@ -59,10 +59,12 @@
                         <th>Name</th>
                         <th>Action</th>
                     </tr>
+                    {{#each prescriptions}}
                     <tr>
-                        <td>Syed Muhammad Yamin Gharbi</td>
-                        <td><button class="card-button">View</button></td>
+                        <td>{{this.patient.name}}</td>
+                        <td><button onclick="window.location.href='/viewprescription/{{this._id}}'" class="card-button">View</button></td>
                     </tr>
+                    {{/each}}
                 </table>
             </div>
         </div>

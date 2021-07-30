@@ -12,31 +12,25 @@ const createBookings = async (req, res) => {
         return;
     }
 
-    // for fetching appointments
-    //const appointment = await Appointment.find({_id : "60ed04e0acf55758f4accdd0"}).populate('patient', {matric_no: 1});
-    //console.log('Leelo Podeena appointment ' , appointment);
-
-
-    //1) send Matric number from front-end (example req.body.matric)
-    //2) fetch user in the database which has this matric number. (why? you need make sure, matric number entered by user is valid and exist in your databse)
-    //3) user = find()
-    //4) patient : user._id
     // new appointment
-    
     const userInputMatric_no = req.body.matric_no;
     const patient = await Patient.findOne({matric_no :userInputMatric_no});
 
-    if(!patient)
+    if(userInputMatric_no != req.session.user.matric_no)
     {
         //send invalid matric number error
+        req.flash('message', 'Please provide correct Matric no.');
         res.redirect('/bookappointments')
-    }else {
+        
+    }else 
+    {
 
         const appointment = new Appointment({
         booking_date : req.body.booking_date,
         booking_time : req.body.booking_time,
         patient : patient._id
         })
+
 
         //await appointment.save();
         //send success message the user, that appointment has created!
@@ -59,7 +53,7 @@ const createBookings = async (req, res) => {
 const findBookings = async (req, res) => {
 
     // appointments with patient name
-    const appointments = await Appointment.find({}).lean().populate('patient', {name: 1});
+    const appointments = await Appointment.find({status: 'pending'}).lean().populate('patient', {name: 1});
     
     if(!appointments){
         //send error

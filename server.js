@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const hbs = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
 const morgan = require('morgan');
 const url = 'mongodb://localhost:27017/EclinicDB';
 
@@ -16,6 +18,8 @@ const PORT = process.env.PORT ||  8080;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(expressValidator());
+app.use(flash());
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -30,24 +34,6 @@ app.use(
     })
 );
 
-// session middleware
-
-// app.use((req, res, next) => {
-//     if(req.session.user && req.cookies.user_sid){
-//         res.redirect('/patientdashboard');
-//     }
-//     next();
-// });
-
-// session custom middleware
-
-// const sessionChecker = (req, res, next) => {
-//     if(req.session.user && req.cookies.user_sid){
-//         res.redirect('/patientdashboard');
-//     }else{
-//         next();
-//     }
-// }
 
 // view engine setup
 app.engine('hbs', hbs({

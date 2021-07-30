@@ -7,7 +7,8 @@ const pharmacylogin = async (req, res) => {
      try {
         const pharmacy = await Pharmacist.findOne({ username: username, password: password }).lean();
         if(!pharmacy) {
-            res.redirect("/pharmacylogin");
+            req.flash('message', 'Wrong username or password');
+            res.redirect('/pharmacylogin');
         }
         
         req.session.user = pharmacy;

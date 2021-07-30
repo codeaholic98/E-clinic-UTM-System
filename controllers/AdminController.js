@@ -13,7 +13,8 @@ const adminlogin = async (req, res) => {
      try {
         const admin = await Admin.findOne({ username: username, password: password }).lean();
         if(!admin) {
-            res.redirect("/adminlogin");
+            req.flash('message', 'Wrong username or password');
+            res.redirect('/adminlogin');
         }
         
         req.session.user = admin;

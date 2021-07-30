@@ -6,6 +6,11 @@
             </div>
             <div class="card-body"> 
                 <br><h2 class="text-center" style="color:#721B09;">Login to PKU UTM</h2><br>
+                {{#if message}}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}  
+                    </div>
+                {{/if}}
                 <form action="/doctorlogin" method="POST">
                     <div class="form-group">   
                         <label for="username" style="color:#721B09;">Username: </label><br>

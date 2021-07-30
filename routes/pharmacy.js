@@ -4,7 +4,7 @@ const pharmacyController = require('../controllers/PharmacyController');
 const prescriptionController = require('../controllers/PrescriptionController');
 
 router.get('/pharmacylogin', (req, res) => {
-    res.render('pharmacyLogin', {title: "E-clinic UTM"});
+    res.render('pharmacyLogin', {title: "E-clinic UTM", message: req.flash('message')});
 })
 
 router.post('/pharmacylogin', pharmacyController.pharmacylogin);

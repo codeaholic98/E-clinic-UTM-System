@@ -2,7 +2,7 @@ const router = require('express').Router();
 const session = require('express-session');
 const AuthController = require('../controllers/AuthController');
 const BookingController = require('../controllers/BookingController');
-
+const prescriptionController = require('../controllers/PrescriptionController');
 
 // session custom middleware
 
@@ -15,14 +15,13 @@ const sessionChecker = (req, res, next) => {
 }
 
 router.get('/login', (req, res) => {
-    res.render('login', {title: "E-clinic UTM"});
+    res.render('login', {title: "E-clinic UTM", message: req.flash('message')});
 })
 
 router.get('/register', (req, res) => {
-    res.render('register', {title: "E-clinic UTM"});
-
+    res.render('register', {title: "E-clinic UTM", success: req.session.success, errors: req.session.errors});
+    req.session.errors = null;
 })
-
 
 router.post('/register', AuthController.register)
 
@@ -39,14 +38,14 @@ router.get('/patientdashboard', (req, res) => {
 })
 
 router.get('/bookappointments', (req, res) => {
-    res.render('bookAppointmentPage', {title: "E-clinic UTM"});
+    res.render('bookAppointmentPage', {title: "E-clinic UTM", message: req.flash('message')});
 })
 
 router.post('/bookappointments', BookingController.createBookings);
 
-router.get('/viewdiagnosticreport', (req, res) => {
-    res.render('viewDiagnosticReport', {title: "E-clinic UTM", layout: "dashboardlayout"});
-})
+router.get('/viewdiagnosticreport', prescriptionController.findpatientprescriptions);
+
+router.get('/viewpatientprescription/:id', prescriptionController.viewpatientprescription);
 
 router.get('/logout', (req, res) => {
   if (req.session.user && req.cookies.user_sid) {

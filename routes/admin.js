@@ -5,7 +5,7 @@ const bookingController = require('../controllers/BookingController');
 const Admin = require('../models/admin.model');
 
 router.get('/adminlogin', (req, res) => {
-    res.render('adminLogin', {title: "E-clinic UTM"});
+    res.render('adminLogin', {title: "E-clinic UTM", message: req.flash('message')});
 });
 
 router.post('/adminlogin', AdminController.adminlogin);

@@ -17,7 +17,7 @@ const createPrescription = async (req,res) => {
 
     if(!patient)
     {
-        res.redirect('/callpatient/:id');
+        res.redirect('/issueprescription');
     }else{
         const prescription = new Prescription({
             issue_date: req.body.issue_date,
@@ -67,7 +67,7 @@ const findPrescriptions = async (req,res) => {
 }
 
 /*
-    view prescription by id
+    view prescription by id -> for pharmacy view
 */
 const viewprescription = async (req,res) => {
     const prescription_id = req.params.id;
@@ -93,7 +93,7 @@ const viewprescription = async (req,res) => {
 }
 
 /*
-    view prescription by matric
+    view prescription by matric -> for doctor view
 */
 
 const findPrescriptionsWithMatric = async (req,res) => {
@@ -133,4 +133,32 @@ const findPrescriptionsWithMatric = async (req,res) => {
 
 }
 
-module.exports = {createPrescription, findPrescriptions, viewprescription, findPrescriptionsWithMatric};
+const findpatientprescriptions = async (req, res) => {
+    const patient_id = req.session.user._id;
+    console.log(patient_id);
+    if(patient_id){
+        const prescription = await Prescription.find({patient: patient_id, status: 'viewed'}).lean().then(prescription => {
+            console.log('prescription', prescription)
+            res.render('viewDiagnosticReport', {title: "E-clinic UTM", layout: "dashboardlayout", prescription: prescription});
+        }).catch(err => {
+            res.status(500).send({message: err.message});
+        })
+    }
+    
+}
+
+const viewpatientprescription = async (req,res) => {
+    const prescription_id = req.params.id;
+    console.log(prescription_id);
+
+    const prescription = await Prescription.findById(prescription_id).lean().populate('patient')
+    .then(prescription => {
+        console.log('prescription', prescription)
+        res.render('prescriptionPage', {title: "E-clinic UTM", prescription: prescription});
+    }).catch(err => {
+        res.status(500).send({message: err.message});
+    })
+
+}
+
+module.exports = {createPrescription, findPrescriptions, viewprescription, findPrescriptionsWithMatric, findpatientprescriptions, viewpatientprescription};

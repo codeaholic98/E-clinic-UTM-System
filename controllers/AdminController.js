@@ -13,7 +13,7 @@ const adminlogin = async (req, res) => {
      try {
         const admin = await Admin.findOne({ username: username, password: password }).lean();
         if(!admin) {
-            req.flash('message', 'Wrong username or password');
+            req.flash('message', 'Empty fields or wrong credentials!');
             res.redirect('/adminlogin');
         }
         

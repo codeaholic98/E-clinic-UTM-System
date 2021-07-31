@@ -3,8 +3,8 @@
         <img class="logo" src="../images/Logo-PKU.png" alt="ClinicCareLogo" />
         
         <div class="date-time">
-          <p id="date">June 1, 2021</p>
-          <p id="time">00:00</p>
+          <p id="date"></p>
+          <p id="time"></p>
         </div>
 
         <div class="nav-images">
@@ -98,5 +98,24 @@
         document.getElementById("sidebar").classList.toggle("active");
         document.getElementById("arrow-left").classList.toggle("active");
       }
+
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+              "July", "August", "September", "October", "November", "December"];
+
+      setInterval(function(){ 
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = monthNames[date.getMonth()];
+      let todayDate = String(date.getDate()).padStart(2,'0');
+      let hour = (date.getHours() % 12) || 12;
+      let minute = date.getMinutes().toString().padStart(2, '0');
+      let amORpm = date.getHours() < 12 ? 'AM' : 'PM';
+
+      let datePattern = month + '-' + todayDate + '-' + year;
+      document.getElementById("date").innerHTML = datePattern;
+
+      let time = hour + ':' + minute + ' ' + amORpm;
+      document.getElementById('time').innerHTML = time;
+      }, 100);
 
     </script>

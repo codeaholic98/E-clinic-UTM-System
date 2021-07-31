@@ -108,6 +108,8 @@ const findPrescriptionsWithMatric = async (req,res) => {
     //fetch prescription using patient id
     if(patient)
     {
+        const date = new Date();
+        console.log(date);
         const prescription = await Prescription.find({patient : patient._id, status: 'viewed'})
         .sort({"issue_date": -1})
         .limit(1)

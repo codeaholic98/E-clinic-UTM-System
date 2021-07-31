@@ -1,11 +1,26 @@
-<div class="container-fluid vh-100" style="background-color:#721B09;">
-     <div class="row justify-content-center h-100">
+<div class="container-fluid vh-100 pb-5" style="background-color:#721B09;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">E-clinic UTM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+     <div class="row justify-content-center pb-2 h-100">
         <div class="card w-25 my-auto shadow">
             <div class="card-header text-center">
                 <img src="../images/Logo-PKU.png" alt="utm-pku-logo" style="width: 13vw; height: 7vh">
             </div>
             <div class="card-body"> 
-                <br><h2 class="text-center" style="color:#721B09;">Login to PKU UTM</h2><br>
+                <h2 class="text-left" style="color:#721B09;">Login</h2><br>
                 {{#if message}}
                     <div class="alert alert-danger" role="alert">
                         {{message}}  

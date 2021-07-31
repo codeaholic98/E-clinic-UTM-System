@@ -23,6 +23,7 @@ header {
   float: right;
   list-style: none;
   margin-top: 5vh;
+  margin-right: 3vw;
 }
 
 .nav-menu li {
@@ -107,11 +108,14 @@ header {
 /* dropdown style for login*/
 
 .dropbtn {
-  color: black;
-  padding: 16px;
-  font-size: 16px;
+  
   border: none;
+  color: rgb(253, 200, 200);
+  text-decoration: none;
+  padding: 1vh 6vh;
+  font-size: 2vh;
 }
+
 
 .dropdown {
   position: relative;
@@ -121,24 +125,24 @@ header {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: rgb(253, 200, 200);
-  min-width: 160px;
+  background-color: linear-gradient(rgba(0, 0, 0, 0.623), rgba(0, 0, 0, 0.623));
+  min-width: 50px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 1vh 6vh;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+/* .dropdown-content a:hover {background-color: #ddd; padding: 1vh 6vh;} */
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: rgb(253, 200, 200);}
+/* .dropdown:hover .dropbtn {background-color: rgb(253, 200, 200);} */
 
 
 @media only screen and (max-width: 620px) {
@@ -193,4 +197,5 @@ footer{
   text-align: center;
   font-size: small;
   padding: 10px;
+  width: 100vw;
 }

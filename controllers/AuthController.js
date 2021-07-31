@@ -32,6 +32,7 @@ const register = async (req, res, next) => {
 
         var errors = req.validationErrors();
         if(errors){
+            console.log(errors);
             req.session.errors = errors;
             req.session.success = false;
             res.redirect('/register');
@@ -80,7 +81,7 @@ const login = async (req, res) => {
         }
         
         if(!patient) {
-            req.flash('message', 'Wrong username or password');
+            req.flash('message', 'Empty fields or wrong credentials!');
             res.redirect('/login');
         }
         
@@ -90,7 +91,6 @@ const login = async (req, res) => {
       console.log(error)
     }
   };
-
 
 
 module.exports = {register, login};

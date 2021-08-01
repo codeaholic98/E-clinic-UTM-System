@@ -21,6 +21,7 @@ router.get('/login', (req, res) => {
 router.get('/register', (req, res) => {
     res.render('register', {title: "E-clinic UTM", success: req.session.success, errors: req.session.errors});
     req.session.errors = null;
+    req.session.success = null;
 })
 
 router.post('/register', AuthController.register)

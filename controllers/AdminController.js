@@ -37,38 +37,61 @@ const createDoctor = (req, res) => {
         return;
     }
 
-    // New Dctor
-    const doctor = new Doctor({
-        username: req.body.username, 
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        sitting_time: req.body.sitting_time,
-        age: req.body.age,
-        gender: req.body.gender,
-        phone_no: req.body.phone_no
-    })
+        req.check('username', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('name', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('email', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('password', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('age', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('gender', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('phone_no', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('sitting_time', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('room_no', 'Field can not be empty, It is required').not().isEmpty();
 
-    
-    // save doctor in the database
-    doctor
-        .save(doctor)
-        .then(data => {
-            res.redirect('/managedoctor')
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while saving the doctor info into database"
-            });
-        });
+        req.check('email', 'Invalid Email').isEmail();
+        req.check('password', 'Password should not be longer than 8 characters').isLength({max: 8});
 
+        var errors = req.validationErrors();
+        if(errors){
+            console.log(errors);
+            req.session.errors = errors;
+            req.session.success = false;
+            res.redirect('/adddoctor');
+        }else{
+            req.session.success = true;
+
+            // New Dctor
+            const doctor = new Doctor({
+                username: req.body.username, 
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password,
+                sitting_time: req.body.sitting_time,
+                age: req.body.age,
+                gender: req.body.gender,
+                phone_no: req.body.phone_no,
+                room_no: req.body.room_no
+            })
+
+        
+            // save doctor in the database
+            doctor
+                .save(doctor)
+                .then(data => {
+                    res.redirect('/managedoctor')
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: err.message || "Some error occurred while saving the doctor info into database"
+                    });
+                });
+        }
 }
 
 // find doctor 
 const findDoctor = (req, res) => {
     Doctor.find({}).lean()
     .then(doctors => {
-       
+        
         res.render('manageDoctor', {title: "E-clinic UTM", layout: "dashboardlayout", doctors: doctors});
     })
     .catch(err => {
@@ -128,29 +151,48 @@ const createPharmacist = (req, res) => {
         return;
     }
 
-    // New Pharmacist
-    const pharmacist = new Pharmacist({
-        username: req.body.username, 
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        age: req.body.age,
-        gender: req.body.gender
-    })
+        req.check('username', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('name', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('email', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('password', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('age', 'Field can not be empty, It is required').not().isEmpty();
+        req.check('gender', 'Field can not be empty, It is required').not().isEmpty();
+
+        req.check('email', 'Invalid Email').isEmail();
+        req.check('password', 'Password should not be longer than 8 characters').isLength({max: 8});
+
+        var errors = req.validationErrors();
+        if(errors){
+            console.log(errors);
+            req.session.errors = errors;
+            req.session.success = false;
+            res.redirect('/addpharmacist');
+        }else{
+            req.session.success = true;
+
+            // New Pharmacist
+            const pharmacist = new Pharmacist({
+                username: req.body.username, 
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password,
+                age: req.body.age,
+                gender: req.body.gender
+            })
 
 
-    // save pharmacist in the database 
-    pharmacist
-        .save(pharmacist)
-        .then(data => {
-            res.redirect('/managepharmacy')
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while saving the pharmacist info into database"
-            });
-        });
-    
+            // save pharmacist in the database 
+            pharmacist
+                .save(pharmacist)
+                .then(data => {
+                    res.redirect('/managepharmacy')
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: err.message || "Some error occurred while saving the pharmacist info into database"
+                    });
+                });
+        }
 }
 
 // find pharmacist 

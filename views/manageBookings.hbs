@@ -27,7 +27,7 @@
               ><img src="../images/user.png " alt=" "
             /></a>
             <div class="dropdown-content2">
-              <a href="/logout">Logout</a>
+              <a href="/adminlogout">Logout</a>
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@
         <a href="/managebookings"
           ><img src="../images/manage.png" alt="" />Manage Bookings</a
         >
-        <a href="/logout"
+        <a href="/adminlogout"
           ><img src="../images/logout.png" alt="" />Logout
         </a>
       </div>
@@ -75,7 +75,10 @@
                     {{#each appointments}}
                     <tr>
                         <td>{{this.patient.name}}</td>
-                        <td><button onclick="window.location.href='/approvebookings/{{this._id}}'" class="card-button">Approve</button></td>
+                        <td>
+                          <button onclick="window.location.href='/approvebookings/{{this._id}}'" class="card-button">Approve</button>
+                          <button onclick="window.location.href='/rejectbookings/{{this._id}}'" class="card-button">Reject</button>
+                        </td>
                     </tr>
                     {{/each}}
                 </table>

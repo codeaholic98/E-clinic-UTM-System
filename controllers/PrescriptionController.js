@@ -15,10 +15,6 @@ const createPrescription = async (req,res) => {
     const matric = req.body.matric_no;
     const patient = await Patient.findOne({matric_no : matric});
 
-    if(!patient)
-    {
-        res.redirect('/issueprescription');
-    }else{
         const prescription = new Prescription({
             issue_date: req.body.issue_date,
             prescription_type: req.body.prescription_type,
@@ -26,7 +22,11 @@ const createPrescription = async (req,res) => {
             patient: patient._id
         })
 
-        await prescription
+        if(!prescription){
+            req.flash('message', 'Please provide something in the field! Fields can not be empty');
+            res.redirect('/issueprescription');
+        }else{
+            await prescription
         .save(prescription)
         .then(data => {
             console.log(data);
@@ -34,12 +34,12 @@ const createPrescription = async (req,res) => {
         }).catch(err => {
             res.status(500).send({message: err.message});
         })
-    }
+        }
 }
 
 
 /*
-    module for display all patient prescriptions
+    module for display all patient prescriptions in pharmacy
 */
 
 const findPrescriptions = async (req,res) => {
@@ -108,32 +108,32 @@ const findPrescriptionsWithMatric = async (req,res) => {
     //fetch prescription using patient id
     if(patient)
     {
-        const date = new Date();
-        console.log(date);
         const prescription = await Prescription.find({patient : patient._id, status: 'viewed'})
         .sort({"issue_date": -1})
         .limit(1)
         .lean().populate('patient'); //gets the latest one
         if(!prescription)
         {
-            //no prescribtion against this matric card message!
-            res.status(400).send({message: "No prescribtion against this matric card message!"});
-            return;
+            //no prescription against this matric card message!
+            req.flash('message', 'No prescription against this matric no.!');
+            res.redirect('/viewpatientreport');
         }else
         {
             //render the page with the found prescription
             console.log('THE NEW ONE ', prescription)
-            res.render('prescriptionPage', {title: "E-clinic UTM", prescription: prescription[0]});
+            res.render('doctorPrescriptionPage', {title: "E-clinic UTM", prescription: prescription[0]});
         }
 
     }else
     {
         //invalid Matric card number!
-        res.status(400).send({message: "invalid Matric card number!"});
-        return;
+        req.flash('message', 'Invalid matric no.');
+        res.redirect('/viewpatientreport');
     }
 
 }
+
+/* for patient to show all his/her prescription */
 
 const findpatientprescriptions = async (req, res) => {
     const patient_id = req.session.user._id;
@@ -149,6 +149,8 @@ const findpatientprescriptions = async (req, res) => {
     
 }
 
+/* for patient to view prescription*/
+
 const viewpatientprescription = async (req,res) => {
     const prescription_id = req.params.id;
     console.log(prescription_id);
@@ -156,7 +158,7 @@ const viewpatientprescription = async (req,res) => {
     const prescription = await Prescription.findById(prescription_id).lean().populate('patient')
     .then(prescription => {
         console.log('prescription', prescription)
-        res.render('prescriptionPage', {title: "E-clinic UTM", prescription: prescription});
+        res.render('patientPrescriptionPage', {title: "E-clinic UTM", prescription: prescription});
     }).catch(err => {
         res.status(500).send({message: err.message});
     })

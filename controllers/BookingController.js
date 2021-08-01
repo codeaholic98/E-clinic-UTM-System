@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Appointment = require('../models/appointment.model.js');
 const Doctor = require('../models/doctor.model.js');
 const Patient = require('../models/patient.model');
-
+const sgMail = require('@sendgrid/mail');
 
 // creates booking
 const createBookings = async (req, res) => {
@@ -15,6 +15,7 @@ const createBookings = async (req, res) => {
     // new appointment
     const userInputMatric_no = req.body.matric_no;
     const patient = await Patient.findOne({matric_no :userInputMatric_no});
+
 
     if(userInputMatric_no != req.session.user.matric_no)
     {
@@ -78,8 +79,70 @@ const approveBooking = async (req,res)=>{
     // find in database and update status
     const appointment = await Appointment.findByIdAndUpdate(appointment_id,{
         status:'approved'
-    }).then(data => {
-        res.redirect('/managebookings');
+    }).populate('patient', {email: 1}).then(data => {
+        
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            const msg = {
+            to: data.patient.email,
+            from: 'smyamin@outlook.com', // Use the email address or domain you verified above
+            subject: 'Your Appointment has been Approved',
+            text: `Your appointment has been approved by admin of booking on ${data.booking_date} at ${data.booking_time}. Please be at PKU 10 minutes early. Thank you`,
+            html: `<strong>Your appointment has been approved by admin of booking on ${data.booking_date} at ${data.booking_time}. Please be at PKU 10 minutes early. Thank you</strong>`,
+            };
+            //ES8
+            (async () => {
+            try {
+                await sgMail.send(msg);
+                res.redirect('/managebookings');
+            } catch (error) {
+                console.error(error);
+
+                if (error.response) {
+                console.error(error.response.body)
+                }
+            }
+            })(); 
+
+    }).catch(err => {
+        res.status(500).send({message : err.message})
+    })
+}
+
+// REJECT BOOKING
+// ADMIN UPDATES THE APPOINTMNET TO REJECTED
+const rejectBooking = async (req,res)=>{
+    console.log("rejected");
+    // request appointment id
+    const appointment_id = req.params.id;
+
+    // find in database and update status
+    const appointment = await Appointment.findByIdAndUpdate(appointment_id,{
+        status:'rejected'
+    }).populate('patient', {email: 1}).then(async (data) => {
+        
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            const msg = {
+            to: data.patient.email,
+            from: 'smyamin@outlook.com', // Use the email address or domain you verified above
+            subject: 'Your Appointment has been Rejected',
+            text: `Your appointment has been rejected due to unavailability of booking on ${data.booking_date} at ${data.booking_time}. Sorry for inconvinience, please book another appointment. Thank you`,
+            html: `<strong>Your appointment has been rejected due to unavailability of booking on ${data.booking_date} at ${data.booking_time}. Sorry for inconvinience, please book another appointment. Thank you</strong>`,
+            };
+            //ES8
+            (async () => {
+            try {
+                await sgMail.send(msg);
+                res.redirect('/managebookings');
+            } catch (error) {
+                console.error(error);
+
+                if (error.response) {
+                console.error(error.response.body)
+                }
+            }
+            })(); 
+            
+
     }).catch(err => {
         res.status(500).send({message : err.message})
     })
@@ -127,7 +190,7 @@ const callBooking = async (req,res)=>{
             status:'called'
         }).lean().populate('patient').then(appointment => {
             console.log('appointment', appointment)
-            res.render('issuePrescription', {title: "E-clinic UTM", appointment: appointment});
+            res.render('issuePrescription', {title: "E-clinic UTM", appointment: appointment, message: req.flash('message')});
         }).catch(err => {
             res.status(500).send({message: err.message});
         })
@@ -136,4 +199,4 @@ const callBooking = async (req,res)=>{
 }
 // DOCTOR WHEN PATIENT CALLED, WILL UPDATE THE BOOKING TO CALLED,
 // THIS STATUS PREVENTS FROM OTHER DOCTORS TO SEE THE PATIENT THAT HAS A STATUS 'CALLED'
-module.exports = {createBookings, findBookings, approveBooking, findApprovedAppointments, callBooking};
+module.exports = {createBookings, findBookings, approveBooking, rejectBooking, findApprovedAppointments, callBooking};

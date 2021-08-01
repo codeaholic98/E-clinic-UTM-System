@@ -13,7 +13,7 @@ router.get('/doctordashboard', bookingController.findApprovedAppointments);
 
 router.get('/viewpatientreport', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
-      res.render('viewPatientReport', {title: "E-clinic UTM", layout: "dashboardlayout", doctorname: req.session.user.name});
+      res.render('viewPatientReport', {title: "E-clinic UTM", layout: "dashboardlayout", doctorname: req.session.user.name, message: req.flash('message')});
   }else{
       res.redirect('/doctorlogin');
   }
@@ -29,7 +29,7 @@ router.get('/prescriptionpage', (req,res) => {
   res.render('prescriptionPage', {title: "E-clinic UTM"});
 })
 
-router.get('/logout', (req, res) => {
+router.get('/doctorlogout', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
       res.clearCookie("user_sid");
       res.redirect("/");

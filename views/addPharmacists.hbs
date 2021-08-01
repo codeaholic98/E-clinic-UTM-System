@@ -7,6 +7,22 @@
             </div>
             <div class="card-body"> 
                 <br><h2 class="text-center" style="color:#721B09;">Add Pharmacist</h2><br>
+                {{#if success}}
+                    <div class="alert alert-success" role="alert">
+                        <a  style="text-decoration: none; padding: 1vh 6vh; font-size: 2vh;" 
+                            class="btn btn-link" href="/addpharmacist">successsss ! Click me to add another pharmacist :) 
+                        </a>
+                    </div>
+                {{else}}
+                    {{#if errors}}
+                        <div class="alert alert-danger" role="alert">
+                            <ul>
+                                {{#each errors}}
+                                    <li>{{this.msg}}</li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    {{/if}}
                 <form action="/addPharmacist" method="POST" enctype="application/json">
                     <div class="form-group">   
                         <label for="username" style="color:#721B09;">Username: </label><br>
@@ -29,11 +45,20 @@
                         <input type="text" id="age" class="form-control" name="age" placeholder="Age"><br>
                     </div>
                     <div class="form-group">
-                        <label for="gender" style="color:#721B09;">Gender:</label><br>
-                        <input type="text" id="gender" class="form-control" name="gender" placeholder="Gender"><br>
+                        <p style="color:#721B09;">Gender:</p>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="gender" value="Male">
+                            <label class="form-check-label" for="gender">Male</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="gender" value="Female">
+                            <label class="form-check-label" for="gender">Female</label>
+                        </div>
                     </div>
+                    <br>
                     <button class="btn btn-block w-100" style="background-color:#721B09; color:white; " value="submit">Add</button>
                 </form>
+                {{/if}}
             </div>
             <div class="card=footer">
 

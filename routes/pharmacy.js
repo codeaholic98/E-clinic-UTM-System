@@ -14,7 +14,7 @@ router.get('/pharmacydashboard', prescriptionController.findPrescriptions);
 
 router.get('/viewprescription/:id', prescriptionController.viewprescription);
 
-router.get('/logout', (req, res) => {
+router.get('/pharmacylogout', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
       res.clearCookie("user_sid");
       res.redirect("/");

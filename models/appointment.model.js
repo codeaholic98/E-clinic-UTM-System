@@ -12,7 +12,7 @@ const appointmentSchema = new Schema({
     },
     booking_time: {
         type: String,
-        requiredl: true
+        required: true
     },
     doctor: {
         type: Schema.Types.ObjectId,

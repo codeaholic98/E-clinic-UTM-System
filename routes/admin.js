@@ -23,12 +23,18 @@ router.get('/managebookings', bookingController.findBookings);
 
 router.get('/approvebookings/:id', bookingController.approveBooking);
 
+router.get('/rejectbookings/:id', bookingController.rejectBooking);
+
 router.get('/adddoctor', (req, res) => {
-    res.render('addDoctor', {title: "E-clinic UTM"});
+    res.render('addDoctor', {title: "E-clinic UTM", success: req.session.success, errors: req.session.errors});
+    req.session.errors = null;
+    req.session.success = null;
 });
 
 router.get('/addpharmacist', (req, res) => {
-    res.render('addPharmacists', {title: "E-clinic UTM"});
+    res.render('addPharmacists', {title: "E-clinic UTM", success: req.session.success, errors: req.session.errors});
+    req.session.errors = null;
+    req.session.success = null;
 });
 
 // API for managing doctor
@@ -47,7 +53,7 @@ router.get('/deletePharmacist/:id', AdminController.deletePharmacist)
 
 // logout
 
-router.get('/logout', (req, res) => {
+router.get('/adminlogout', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
       res.clearCookie("user_sid");
       res.redirect("/");

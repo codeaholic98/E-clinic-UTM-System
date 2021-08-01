@@ -33,12 +33,10 @@ const doctorSchema = new Schema({
     },
     phone_no: {
         type: String
-    },
-    //these are list of patients assigned to this doctor. 
-    patients: [{
-        type:Schema.Types.ObjectId,
-        ref : Patient
-    }]
+    }, 
+    room_no: {
+        type: Number
+    }
 
 });
 

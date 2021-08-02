@@ -1,0 +1,117 @@
+<div class="container" id="container">
+      <div class="header" style="background-color:white; color:#721B09; ">
+        <img class="logo" src="../images/Logo-PKU.png" alt="ClinicCareLogo" />
+        
+        <div class="date-time">
+          <p id="date"></p>
+          <p id="time"></p>
+        </div>
+
+        <div class="nav-images">
+          <a href="#" class="nav-logos"
+            ><img src="../images/settings.png" alt=""
+          /></a>
+
+          <div class="dropdown-notification">
+            <a href="#" class="nav-logos"
+              ><img src="../images/notification.png" alt=""
+            /></a>
+            <div class="dropdown-content">
+              <a href="#">You have missed an appointment</a>
+              <a href="#">Clear all notification</a>
+            </div>
+          </div>
+
+          <div class="dropdown-user">
+            <a href="# " class="nav-logos"
+              ><img src="../images/user.png " alt=" "
+            /></a>
+            <div class="dropdown-content2">
+              <a href="/adminlogout">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar" id="sidebar">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+          <a href="" onclick=" return false">
+            <div id="arrow-left"></div>
+          </a>
+        </div>
+
+        <a href="/admindashboard" class="nav-active"
+          ><img src="../images/home.png" />Home</a
+        >
+        <a href="/managedoctor"
+          ><img src="../images/manage.png" alt="" />Manage Doctor</a
+        >
+        <a href="/managepharmacy"
+          ><img src="../images/manage.png" alt="" />Manage Pharmacy</a
+        >
+        <a href="/manageactivity"
+          ><img src="../images/manage.png" alt="" />Manage Activity</a
+        >
+        <a href="/managebookings"
+          ><img src="../images/manage.png" alt="" />Manage Bookings</a
+        >
+        <a href="/adminlogout"
+          ><img src="../images/logout.png" alt="" />Logout
+        </a>
+      </div>
+
+      <div class="main" style="background-color:#8d8787; color:white; ">
+        <div class="top-container">
+            <div class="report-heading">
+                <h1>Activities</h1>
+            </div>
+            <div class="table-container">
+                <table id="report">
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                    {{#each data}}
+                    <tr>
+                        <td>{{this.activity_name}}</td>
+                        <td><button onclick="window.location.href='/deleteActivity/{{this._id}}'" class="card-button">Delete</button></td>
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+            <div class="box-container">
+                <button onclick="window.location.href='/addactivity'" class="box-container-button">Add New Activity</button>
+            </div>
+        </div>
+      </div>
+</div>
+
+    <script type="text/javascript">
+      function toggleSidebar() {
+        document
+          .getElementById("container")
+          .classList.toggle("container-no-sidebar");
+        document.getElementById("sidebar").classList.toggle("active");
+        document.getElementById("arrow-left").classList.toggle("active");
+      }
+
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+              "July", "August", "September", "October", "November", "December"];
+
+      setInterval(function(){ 
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = monthNames[date.getMonth()];
+      let todayDate = String(date.getDate()).padStart(2,'0');
+      let hour = (date.getHours() % 12) || 12;
+      let minute = date.getMinutes().toString().padStart(2, '0');
+      let amORpm = date.getHours() < 12 ? 'AM' : 'PM';
+
+      let datePattern = month + '-' + todayDate + '-' + year;
+      document.getElementById("date").innerHTML = datePattern;
+
+      let time = hour + ':' + minute + ' ' + amORpm;
+      document.getElementById('time').innerHTML = time;
+      }, 100);
+
+    </script>

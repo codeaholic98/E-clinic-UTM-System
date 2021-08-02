@@ -1,0 +1,38 @@
+<div class="container-fluid vh-100" style="background-color:white;">
+     <button type="button" onclick="window.location.href='/manageactivity'" class="btn btn-danger mt-5 ms-5" style="background-color:#721B09; color:white;">Back</button>
+     <div class="row justify-content-center h-100">
+        <div class="card w-50 my-auto mt-5 shadow">
+            <div class="card-header text-center">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="../images/Logo-PKU.png" alt="utm-pku-logo" style="width: 13vw; height: 7vh">
+                    </div>
+                    <div class="col-6">
+                        <h2 class="text-center p-2" style="color:#721B09;">Add Activity</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body"> 
+                <form class="p-5" action="/addactivity" method="POST" enctype="multipart/form-data">
+                    {{#if message}}
+                        <div class="alert alert-danger" role="alert">
+                            {{message}}  
+                        </div>
+                    {{/if}} 
+                    <div style="color:#721B09;">   
+                        Add any upcoming activity for the students to view from there page.
+                    </div>
+                    <br>
+                    <div class="form-group">   
+                        <input type="text" id="activity_name" class="form-control" name="activity_name" placeholder="Activity Name"><br>
+                    </div>
+                    <div class="row">
+                        <input type="file" id="file" class="form-control w-50 m-3" name="file" placeholder="Upload image"><br>
+                    </div>
+                    <br>
+                    <input type="submit" class="btn btn-block w-100" style="background-color:#721B09; color:white;" value="Submit" />
+                </form>
+            </div>
+        </div>
+     </div>
+</div>

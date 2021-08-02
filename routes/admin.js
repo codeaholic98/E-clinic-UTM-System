@@ -19,17 +19,36 @@ router.get('/admindashboard', (req, res) => {
     }
 });
 
+// manage bookings
+
 router.get('/managebookings', bookingController.findBookings);
 
 router.get('/approvebookings/:id', bookingController.approveBooking);
 
 router.get('/rejectbookings/:id', bookingController.rejectBooking);
 
+
+// manage activity
+
+router.get('/manageactivity', AdminController.findactivities);
+
+router.get('/addactivity', (req, res) => {
+    res.render('addActivity', {title: "E-clinic UTM", message: req.flash('message')});
+})
+
+router.post('/addactivity', AdminController.upload, AdminController.addactivity);
+
+router.get('/deleteActivity/:id', AdminController.deleteActivity);
+
+// add doctor
+
 router.get('/adddoctor', (req, res) => {
     res.render('addDoctor', {title: "E-clinic UTM", success: req.session.success, errors: req.session.errors});
     req.session.errors = null;
     req.session.success = null;
 });
+
+// add pharmacist
 
 router.get('/addpharmacist', (req, res) => {
     res.render('addPharmacists', {title: "E-clinic UTM", success: req.session.success, errors: req.session.errors});

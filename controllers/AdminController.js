@@ -1,7 +1,9 @@
 const Doctor = require('../models/doctor.model');
 const Pharmacist = require('../models/pharmacy.model');
 const Admin = require('../models/admin.model');
-
+const Activity = require('../models/activity.model');
+const multer = require('multer');
+const path = require('path');
 /* 
     module for admin login 
 */ 
@@ -23,6 +25,80 @@ const adminlogin = async (req, res) => {
       console.log(error)
     }
 };
+
+/* 
+    modules for manage activity 
+*/
+
+let Storage = multer.diskStorage({
+    destination: "./static/uploads/",
+    filename: (req, file, cb) => {
+        cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname))
+    }
+})
+
+let upload = multer({
+    storage: Storage
+}).single('file');
+
+// create activity 
+const addactivity = (req, res, next) => {
+    if(!req.body){
+        req.flash('message', 'Field can not be empty! Please provide file before submit')
+        res.redirect('/addactivity')
+    }
+
+    // New Activity
+    const activity = new Activity({
+        activity_name: req.body.activity_name,
+        file: req.file.filename
+    })
+
+    // save activity in the database
+    activity
+    .save(activity)
+    .then(data => {
+        res.redirect('/manageactivity')
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred"
+        });
+    });
+
+}
+
+// find all activities
+
+const findactivities = (req, res) => {
+    Activity.find({}).lean()
+    .then(data => {
+        res.render('manageActivity', {title: "E-clinic UTM", layout: "dashboardlayout", data: data});
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message
+        })
+    })
+}
+
+
+const deleteActivity = (req, res) => {
+    const id = req.params.id;
+    console.log("id: ", id)
+    Activity.findByIdAndDelete(id)
+    .then(data => {
+        if(!data){
+            res.status(404).send({message: `Can not delete with id ${id}. Maybe id is wrong`})
+        }else{
+            res.redirect('/manageactivity')
+        }
+    })
+    .catch(err => {
+        res.status(500).send({message: err.message || `Could not delete User with id ${id}`})
+    })
+}
+
 
 
 /* 
@@ -244,6 +320,6 @@ const deletePharmacist = (req, res) => {
 }
 
 
-module.exports = {adminlogin, createDoctor, createPharmacist, findDoctor, findPharmacist, updateDoctor, updatePharmacist, deleteDoctor, deletePharmacist};
+module.exports = {adminlogin, upload, addactivity, createDoctor, createPharmacist, findactivities, findDoctor, findPharmacist, updateDoctor, updatePharmacist, deleteActivity, deleteDoctor, deletePharmacist};
 
 

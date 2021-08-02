@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Patient = require('./patient.model');
 
 const Schema = mongoose.Schema;
 

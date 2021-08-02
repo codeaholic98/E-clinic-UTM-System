@@ -49,7 +49,7 @@
         <a href="/managepharmacy"
           ><img src="../images/manage.png" alt="" />Manage Pharmacy</a
         >
-        <a href="#"
+        <a href="/manageactivity"
           ><img src="../images/manage.png" alt="" />Manage Activity</a
         >
         <a href="/managebookings"
@@ -69,12 +69,15 @@
                 <table id="report">
                     <tr>
                         <th>Patient's Name</th>
-                        {{!-- <th>Assign Doctor</th> --}}
+                        <th>Booked date</th>
+                        <th>Booked time</th>
                         <th>Action</th>
                     </tr>
                     {{#each appointments}}
                     <tr>
                         <td>{{this.patient.name}}</td>
+                        <td>{{this.booking_date}}</td>
+                        <td>{{this.booking_time}}</td>
                         <td>
                           <button onclick="window.location.href='/approvebookings/{{this._id}}'" class="card-button">Approve</button>
                           <button onclick="window.location.href='/rejectbookings/{{this._id}}'" class="card-button">Reject</button>

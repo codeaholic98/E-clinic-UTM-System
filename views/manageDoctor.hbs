@@ -49,7 +49,7 @@
         <a href="/managepharmacy"
           ><img src="../images/manage.png" alt="" />Manage Pharmacy</a
         >
-        <a href="#"
+        <a href="/manageactivity"
           ><img src="../images/manage.png" alt="" />Manage Activity</a
         >
         <a href="/managebookings"
@@ -69,6 +69,8 @@
                 <table id="report">
                     <tr>
                         <th>Name</th>
+                        <th>Siting Time</th>
+                        <th>Room no.</th>
                         <th>Age</th>
                         <th>Gender</th>
                         <th>Action</th>
@@ -76,6 +78,8 @@
                     {{#each doctors}}
                     <tr>
                         <td>{{this.name}}</td>
+                        <td>{{this.sitting_time}}</td>
+                        <td>{{this.room_no}}</td>
                         <td>{{this.age}}</td>
                         <td>{{this.gender}}</td>
                         <td><button onclick="window.location.href='/deleteDoctor/{{this._id}}'" class="card-button">Delete</button></td>

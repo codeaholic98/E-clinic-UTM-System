@@ -3,6 +3,7 @@ const session = require('express-session');
 const AuthController = require('../controllers/AuthController');
 const BookingController = require('../controllers/BookingController');
 const prescriptionController = require('../controllers/PrescriptionController');
+const Activity = require('../models/activity.model');
 
 // session custom middleware
 
@@ -47,6 +48,23 @@ router.post('/bookappointments', BookingController.createBookings);
 router.get('/viewdiagnosticreport', prescriptionController.findpatientprescriptions);
 
 router.get('/viewpatientprescription/:id', prescriptionController.viewpatientprescription);
+
+router.get('/viewactivities', (req, res) => {
+    Activity.find({}).lean()
+    .then(data => {
+        if(!data){
+            req.flash('message', 'No Activities available!')
+            res.redirect('/viewactivities')
+        }
+        res.render('viewActivity', {title: "E-clinic UTM", data: data, message: req.flash('message')});
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message
+        })
+    })
+    
+})
 
 router.get('/logout', (req, res) => {
   if (req.session.user && req.cookies.user_sid) {

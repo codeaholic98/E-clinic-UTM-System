@@ -11,6 +11,7 @@ const createPrescription = async (req,res) => {
         return;
     }
 
+
     // create prescription
     const matric = req.body.matric_no;
     const patient = await Patient.findOne({matric_no : matric});

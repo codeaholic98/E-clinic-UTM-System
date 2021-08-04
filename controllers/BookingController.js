@@ -16,7 +16,8 @@ const createBookings = async (req, res) => {
     const userInputMatric_no = req.body.matric_no;
     const patient = await Patient.findOne({matric_no :userInputMatric_no});
 
-
+    
+    // save bookings
     if(userInputMatric_no != req.session.user.matric_no)
     {
         //send invalid matric number error
@@ -171,6 +172,22 @@ const findApprovedAppointments = async (req,res)=>{
     }
 }
 
+// ADMIN VIEW APPROVED APPOINTMENTS
+const  adminviewapprovedappointments = async (req,res) => {
+    const approvedappointments = await Appointment.find({
+        status:'approved'
+    }).lean().populate('patient', {name: 1})
+    
+    if(!approvedappointments){
+        //send error
+        res.status(400).send({message: "Content can not be empty"});
+        return;
+    }else{
+        console.log("approvedappointments", approvedappointments);
+        res.render('approveBookingsView', {title: "E-clinic UTM", approvedappointments: approvedappointments})
+    }
+}
+
 
 
 // CALLED BOOKING
@@ -199,4 +216,4 @@ const callBooking = async (req,res)=>{
 }
 // DOCTOR WHEN PATIENT CALLED, WILL UPDATE THE BOOKING TO CALLED,
 // THIS STATUS PREVENTS FROM OTHER DOCTORS TO SEE THE PATIENT THAT HAS A STATUS 'CALLED'
-module.exports = {createBookings, findBookings, approveBooking, rejectBooking, findApprovedAppointments, callBooking};
+module.exports = {createBookings, findBookings, approveBooking, rejectBooking, findApprovedAppointments, callBooking, adminviewapprovedappointments};

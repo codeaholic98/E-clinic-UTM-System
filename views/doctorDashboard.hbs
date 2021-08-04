@@ -59,12 +59,16 @@
             <div class="table-container">
                 <table id="report">
                     <tr>
-                        <th>Name</th>
+                        <th>Patient's Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
                         <th>Action</th>
                     </tr>
                     {{#each approvedappointments}}
                     <tr>
                         <td>{{this.patient.name}}</td>
+                        <td>{{this.booking_date}}</td>
+                        <td>{{this.booking_time}}</td>
                         <td><button onclick="window.location.href='/callpatient/{{this._id}}'" class="card-button">Call</button></td>
                     </tr>
                     {{/each}}

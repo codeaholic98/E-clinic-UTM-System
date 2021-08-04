@@ -1,0 +1,37 @@
+<div class="container-fluid vh-100" style="background-color:white;">
+     <button type="button" onclick="window.location.href='/managebookings'" class="btn btn-danger mt-5 ms-5" style="background-color:#721B09; color:white;">Back</button>
+     <div class="row justify-content-center h-100">
+        <div class="card w-50 my-auto mt-5 shadow">
+            <div class="card-header text-center">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="../images/Logo-PKU.png" alt="utm-pku-logo" style="width: 13vw; height: 7vh">
+                    </div>
+                    <div class="col-6">
+                        <h2 class="text-center p-2" style="color:#721B09;">Approved Bookings</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body"> 
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">Patient's Name</th>
+                        <th scope="col">Booked Date</th>
+                        <th scope="col">Booked Time</th>
+                        </tr>
+                    </thead>
+                    {{#each approvedappointments}}
+                    <tbody>
+                        <tr>
+                        <td>{{this.patient.name}}</td>
+                        <td>{{this.booking_date}}</td>
+                        <td>{{this.booking_time}}</td>
+                        </tr>
+                    </tbody>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+     </div>
+</div>

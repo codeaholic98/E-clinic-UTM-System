@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const prescriptionSchema = new Schema({
     issue_date: {
-        type: Date,
+        type: String,
         required: true
     },
     prescription_type: {

@@ -3,10 +3,10 @@ const session = require('express-session');
 const AdminController = require('../controllers/AdminController');
 const bookingController = require('../controllers/BookingController');
 const Admin = require('../models/admin.model');
-// const Patient = require('../models/patient.model');
-// const Doctor = require('../models/doctor.model');
-// const Pharmacy = require('../models/pharmacy.model');
-// const Appointment = require('../models/appointment.model');
+const Patient = require('../models/patient.model');
+const Doctor = require('../models/doctor.model');
+const Pharmacy = require('../models/pharmacy.model');
+const Appointment = require('../models/appointment.model');
 
 router.get('/adminlogin', (req, res) => {
     res.render('adminLogin', {title: "E-clinic UTM", message: req.flash('message')});
@@ -14,25 +14,19 @@ router.get('/adminlogin', (req, res) => {
 
 router.post('/adminlogin', AdminController.adminlogin);
 
-router.get('/admindashboard', (req, res) => {
+router.get('/admindashboard', async (req, res) => {
 
     if (req.session.user && req.cookies.user_sid) {
-        res.render('adminDashboard', {title: "E-clinic UTM", layout: "dashboardlayout"});
+        const patients = await Patient.find().countDocuments();
+        const doctors = await Doctor.find().countDocuments();
+        const pharmacists = await Pharmacy.find().countDocuments();
+        const appointments = await Appointment.find().countDocuments();
+
+        res.render('adminDashboard', {title: "E-clinic UTM", layout: "dashboardlayout", doctors: doctors, patients: patients, pharmacists: pharmacists, appointments: appointments});
     }else{
         res.redirect('/adminlogin');
     }
 });
-
-// router.get('/countpatients', async (req,res) => {
-//     const patients = await Patient.find().countDocuments();
-//     const doctors = await Doctor.find().countDocuments();
-//     const pharmacists = await Pharmacy.find().countDocuments();
-//     const appointments = await Appointment.find().countDocuments();
-
-//     var arr = [patients, doctors, pharmacists, appointments];
-//     console.log(arr);
-//     return arr;
-// })
 
 // manage bookings
 

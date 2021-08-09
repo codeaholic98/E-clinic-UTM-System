@@ -61,97 +61,30 @@
       </div>
 
       <div class="main" style="background-color:#8d8787; color:white; ">
-        <div class="top-container">
-          <div class="inner-container">
-            <div class="top-left-container">
-              <canvas id="myChart"></canvas>
+        <div class="counter_container">
+          <div class="upper_container">
+            <div class="no_of_doctors">
+              <h1 class="number">No. of Doctors</h1>
+              <span class="counts">{{doctors}}</span>
             </div>
-            <div class="top-right-container">
-              <canvas id="mylineChart"></canvas>
+            <div class="no_of_patients">
+              <h1 class="number">No. of Patients</h1>
+              <span class="counts">{{patients}}</span>
+            </div>
+          </div>
+          <div class="lower_container">
+            <div class="no_of_pharmacists">
+              <h1 class="number">No. of Pharmacists</h1>
+              <span class="counts">{{pharmacists}}</span>
+            </div>
+            <div class="no_of_appointments">
+              <h1 class="number">No. of Appointments</h1>
+              <span class="counts">{{appointments}}</span>
             </div>
           </div>
         </div>
       </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js">
-
-</script>
-
-<script>
-  
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Patients',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-
-var ctl = document.getElementById('mylineChart').getContext('2d');
-var myChart = new Chart(ctl, {
-    type: 'line',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Appointments',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-</script>
 
   <script type="text/javascript">
       function toggleSidebar() {

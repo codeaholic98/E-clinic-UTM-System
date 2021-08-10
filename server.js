@@ -53,6 +53,10 @@ app.get('/', (req, res) => {
 })
 
 
+// event routes
+const eventRoutes = require('./routes/event');
+app.use('/events',eventRoutes)
+
 // patient routes
 const patientsRouter = require('./routes/patients');
 app.use('/', patientsRouter);

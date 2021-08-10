@@ -22,6 +22,7 @@ router.get('/viewpatientreport', (req, res) => {
 router.post('/viewpatientprescription', prescriptionController.findPrescriptionsWithMatric);
 
 router.get('/callpatient/:id', bookingController.callBooking);
+// router.get('/alertpatient/:id', bookingController.alertPatient);
 
 router.post('/issueprescription', prescriptionController.createPrescription);
 

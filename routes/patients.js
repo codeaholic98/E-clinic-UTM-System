@@ -32,7 +32,7 @@ router.post('/login', AuthController.login)
 router.get('/patientdashboard', (req, res) => {
 
     if (req.session.user && req.cookies.user_sid) {
-        res.render('patientDashboard', {title: "E-clinic UTM", layout: "dashboardlayout"});
+        res.render('patientDashboard', {title: "E-clinic UTM", patientid: req.session.user._id, layout: "dashboardlayout"});
     }else{
         res.redirect('/login');
     }

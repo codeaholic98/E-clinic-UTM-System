@@ -118,7 +118,9 @@
           <div class="mid-container">
             <div class="upper-mid">
               <h1 class="upper-mid-heading">Track Status</h1>
-              <p class="room-call-bar">Call from Doctor -> Room no. 1</p>
+
+              <p id='patient_id' style="display: none;">{{patientid}}</p>
+              <p class="room-call-bar" id="sse"></p>
             </div>
             <div class="lower-mid">
               <div class="left-card">
@@ -135,6 +137,7 @@
 </div>
 
     <script type="text/javascript">
+
       function toggleSidebar() {
         document
           .getElementById("container")
@@ -169,4 +172,27 @@
         slides[slideIndex-1].style.display = "block";  
         dots[slideIndex-1].className += " active";
       }
+
+      if (!!window.EventSource) {
+          const id = document.getElementById('patient_id').innerHTML
+        console.log('inner id ', id)
+        const source = new EventSource(`http://localhost:5000/events/bookingEvents/${id}`)
+
+        source.addEventListener('message', function(e) {
+          console.log('recieved data', e)
+          const data = JSON.parse(e.data);
+          document.getElementById('sse').innerHTML = data.message;
+        }, false)
+
+        source.addEventListener('open', function(e) {
+          console.log("Connection was opened")
+        }, false)
+
+        source.addEventListener('error', function(e) {
+          if (e.readyState == EventSource.CLOSED) {
+            console.log("Connection was closed")
+          }
+        }, false)
+      }
+
     </script>

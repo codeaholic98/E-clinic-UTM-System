@@ -3,6 +3,7 @@ const Appointment = require('../models/appointment.model.js');
 const Doctor = require('../models/doctor.model.js');
 const Patient = require('../models/patient.model');
 const sgMail = require('@sendgrid/mail');
+const eventEmitter = require('../events')
 
 // creates booking
 const createBookings = async (req, res) => {
@@ -188,13 +189,36 @@ const  adminviewapprovedappointments = async (req,res) => {
     }
 }
 
+//Alert patient
 
+// const alertPatient = async (req, res) => {
+//     const appointment_id = req.params.id;
+//     console.log('id', appointment_id);
+
+//     const approvedappointments = await Appointment.findById(appointment_id)
+//     if(approvedappointments.status == 'called'){
+//         res.status(400).send({message: "This patient has been called already"});
+//         return;
+//     }
+//     else{
+//         await Appointment.findByIdAndUpdate(appointment_id, {status: 'approved'})
+//         .lean().populate('patient')
+//         .then(appointment => {
+//             // emit an event with the data
+//             eventEmitter.emit(`booking.call.${appointment.patient._id}`,{message:'doctor is calling'})
+//         }).catch(err => {
+//             res.status(500).send({message: err.message});
+//         })
+//     }
+    
+// }
 
 // CALLED BOOKING
 const callBooking = async (req,res)=>{
-    //const doctor_id = req.params.doctor_id
+
     const appointment_id = req.params.id;
     console.log('id', appointment_id);
+
     const approvedappointment = await Appointment.findById(appointment_id)
     if (approvedappointment.status == 'called'){
 
@@ -202,10 +226,14 @@ const callBooking = async (req,res)=>{
         return;
     } 
     else {
-
+        
          await Appointment.findByIdAndUpdate(appointment_id,{
             status:'called'
         }).lean().populate('patient').then(appointment => {
+
+            // emit an event with the data
+            eventEmitter.emit(`booking.call.${appointment.patient._id}`,{message:`Doctor is calling from Room no. ${req.session.user.room_no}`})
+
             console.log('appointment', appointment)
             res.render('issuePrescription', {title: "E-clinic UTM", appointment: appointment, message: req.flash('message')});
         }).catch(err => {

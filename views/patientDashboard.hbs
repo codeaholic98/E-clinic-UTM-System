@@ -176,7 +176,7 @@
       if (!!window.EventSource) {
           const id = document.getElementById('patient_id').innerHTML
         console.log('inner id ', id)
-        const source = new EventSource(`http://localhost:5000/events/bookingEvents/${id}`)
+        const source = new EventSource(`/events/bookingEvents/${id}`)
 
         source.addEventListener('message', function(e) {
           console.log('recieved data', e)

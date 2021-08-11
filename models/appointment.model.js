@@ -24,7 +24,7 @@ const appointmentSchema = new Schema({
     },
     status:{
         type:String,
-        enum:['pending', 'approved','called', 'rejected'],
+        enum:['pending', 'approved','called', 'rejected', 'discarded'],
         default : 'pending'
     }
 });

@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
 const Appointment = require('../models/appointment.model.js');
-const Doctor = require('../models/doctor.model.js');
 const Patient = require('../models/patient.model');
 const sgMail = require('@sendgrid/mail');
 const eventEmitter = require('../events')
@@ -189,29 +187,6 @@ const  adminviewapprovedappointments = async (req,res) => {
     }
 }
 
-//Alert patient
-
-// const alertPatient = async (req, res) => {
-//     const appointment_id = req.params.id;
-//     console.log('id', appointment_id);
-
-//     const approvedappointments = await Appointment.findById(appointment_id)
-//     if(approvedappointments.status == 'called'){
-//         res.status(400).send({message: "This patient has been called already"});
-//         return;
-//     }
-//     else{
-//         await Appointment.findByIdAndUpdate(appointment_id, {status: 'approved'})
-//         .lean().populate('patient')
-//         .then(appointment => {
-//             // emit an event with the data
-//             eventEmitter.emit(`booking.call.${appointment.patient._id}`,{message:'doctor is calling'})
-//         }).catch(err => {
-//             res.status(500).send({message: err.message});
-//         })
-//     }
-    
-// }
 
 // CALLED BOOKING
 const callBooking = async (req,res)=>{
@@ -244,4 +219,46 @@ const callBooking = async (req,res)=>{
 }
 // DOCTOR WHEN PATIENT CALLED, WILL UPDATE THE BOOKING TO CALLED,
 // THIS STATUS PREVENTS FROM OTHER DOCTORS TO SEE THE PATIENT THAT HAS A STATUS 'CALLED'
-module.exports = {createBookings, findBookings, approveBooking, rejectBooking, findApprovedAppointments, callBooking, adminviewapprovedappointments};
+
+
+// DISCARD BOOKING
+
+const discardBooking = async (req, res) => {
+    console.log("discarded");
+    // request appointment id
+    const appointment_id = req.params.id;
+
+    // find in database and update status
+    const appointment = await Appointment.findByIdAndUpdate(appointment_id,{
+        status:'discarded'
+    }).populate('patient', {email: 1}).then(async (data) => {
+        
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            const msg = {
+            to: data.patient.email,
+            from: 'smyamin@outlook.com', // Use the email address or domain you verified above
+            subject: 'Your Appointment has been Discarded',
+            text: `Your appointment has been discarded due to late appearance for booking on ${data.booking_date} at ${data.booking_time}. Sorry for inconvinience, please book another appointment. Thank you`,
+            html: `<strong>Your appointment has been discarded due to late appearance for booking on ${data.booking_date} at ${data.booking_time}. Sorry for inconvinience, please book another appointment. Thank you</strong>`,
+            };
+            //ES8
+            (async () => {
+            try {
+                await sgMail.send(msg);
+                res.redirect('/doctordashboard');
+            } catch (error) {
+                console.error(error);
+
+                if (error.response) {
+                console.error(error.response.body)
+                }
+            }
+            })(); 
+            
+
+    }).catch(err => {
+        res.status(500).send({message : err.message})
+    })
+}
+
+module.exports = {createBookings, findBookings, approveBooking, rejectBooking, findApprovedAppointments, callBooking, adminviewapprovedappointments, discardBooking};
